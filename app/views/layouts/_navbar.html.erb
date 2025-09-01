@@ -1,12 +1,19 @@
-<div style = "display: flex; gap: 10px;"> 
-<%= link_to "Home", root_path %>
-<%= link_to "Posts", posts_path %>
-<%= link_to "New Post", new_post_path %>
+<%= stylesheet_link_tag 'index' %>
 
-<% if user_signed_in? %>
-<%= button_to "Sign Out", destroy_user_session_path, method: :delete %>
-<% else %>
-<%= link_to "Login", new_user_session_path %>
-<%= link_to "Sign Up", new_user_registration_path %>
-<% end %>
+<div class="navbarbackground"> 
+    <div class="navbar">
+        <%= link_to "Home", root_path %>
+        <%= link_to "Posts", posts_path %>
+        <%= link_to "New Post", new_post_path %>
+
+        
+    </div>
+    <div class="user_options">
+        <% if user_signed_in? %>
+            <%= button_to "Sign Out", destroy_user_session_path, method: :delete %>
+            <% else %>
+            <%= link_to "Login", new_user_session_path %>
+            <%= link_to "Sign Up", new_user_registration_path %>
+        <% end %>
+    </div>
 </div>
