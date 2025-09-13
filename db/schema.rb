@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_09_13_184444) do
+ActiveRecord::Schema[8.0].define(version: 2025_09_13_184907) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -24,9 +24,41 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_13_184444) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "courses", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.integer "duration"
+    t.string "difficulty"
+    t.boolean "is_active"
+    t.integer "created_by"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "posts", force: :cascade do |t|
     t.string "title"
     t.string "body"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "training_modules", force: :cascade do |t|
+    t.string "title"
+    t.text "content"
+    t.string "video_url"
+    t.integer "course_id"
+    t.integer "order"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "user_progresses", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "training_module_id"
+    t.integer "status"
+    t.integer "score"
+    t.integer "time_spent"
+    t.datetime "completed_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
