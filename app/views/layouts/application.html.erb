@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
   <head>
     <title><%= content_for(:title) || "Cybersecurity" %></title>
@@ -33,4 +33,28 @@
         <%= yield %>
     </div>
   </body>
+</html>
+-->
+<!-- app/views/layouts/application.html.erb -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cyber Security Training</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+  <%= javascript_importmap_tags %>
+</head>
+<body class="bg-gray-100">
+  <% if user_signed_in? %>
+    <%= render 'shared/navbar' %>
+  <% end %>
+
+  <main class="container mx-auto px-4 py-8">
+    <%= render 'shared/flash' %>
+    <%= yield %>
+  </main>
+</body>
 </html>
