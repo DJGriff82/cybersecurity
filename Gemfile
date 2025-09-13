@@ -36,3 +36,14 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+gem "pundit", "~> 2.5"
+gem "acts_as_tenant", "~> 1.0"
+gem "chartkick", "~> 5.2"
+gem "groupdate", "~> 6.7"
+gem "sidekiq", "~> 8.0"
+gem "redis-rails", "~> 0.0.0"
+gem "simple_form", "~> 5.3"
+
+gem "rspec-rails", "~> 8.0", groups: [:development, :test]
+gem "factory_bot_rails", "~> 6.5", groups: [:development, :test]
