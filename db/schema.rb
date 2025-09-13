@@ -10,9 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_30_190917) do
+ActiveRecord::Schema[8.0].define(version: 2025_09_13_184444) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "companies", force: :cascade do |t|
+    t.string "name"
+    t.string "subdomain"
+    t.string "contact_email"
+    t.string "subscription_status"
+    t.integer "max_users"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "posts", force: :cascade do |t|
     t.string "title"
@@ -29,6 +39,11 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_30_190917) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "role", default: 0
+    t.integer "company_id"
+    t.datetime "deleted_at"
+    t.index ["company_id"], name: "index_users_on_company_id"
+    t.index ["deleted_at"], name: "index_users_on_deleted_at"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
