@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   resources :categories
   resources :courses do
     resources :training_modules do
-      resources :training_module_pages
+      resources :module_pages
     end
   end
   get 'analytics', to: 'analytics#index'
@@ -27,14 +27,16 @@ end
 
   # Staff routes
   resources :courses, only: [:index, :show] do
-    resources :training_modules, only: [:show] do
-      member do
-        patch :update_progress
-        post :complete
-      end
+  resources :training_modules, only: [:show] do
+    resources :module_pages, only: [:show], controller: "course_pages"
+
+    member do
+      patch :update_progress
+      post :complete
     end
-    resources :assessments, only: [:show, :create]
   end
+  resources :assessments, only: [:show, :create]
+end
 
   # Authentication
   devise_for :users, controllers: {

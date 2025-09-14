@@ -48,6 +48,14 @@
           <li class="py-3">
             <h3 class="text-lg font-medium text-gray-900"><%= tm.title %></h3>
             <p class="text-sm text-gray-500">Order: <%= tm.order %></p>
+
+            <% if tm.module_pages.any? %>
+              <%= link_to "▶ Start Module",
+                          course_training_module_module_page_path(@course, tm, tm.module_pages.first),
+                          class: "mt-2 inline-block bg-blue-600 text-white px-4 py-2 rounded" %>
+            <% else %>
+              <p class="text-gray-500 mt-2">No pages yet.</p>
+            <% end %>
           </li>
         <% end %>
       </ul>

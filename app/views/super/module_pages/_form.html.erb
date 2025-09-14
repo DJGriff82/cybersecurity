@@ -1,0 +1,45 @@
+<%= form_with(model: [:super, @course, @training_module, @page], local: true, multipart: true) do |form| %>
+  <!-- Title -->
+  <div class="mb-4">
+    <%= form.label :title, "Page Title", class: "block font-bold mb-1" %>
+    <%= form.text_field :title, required: true, class: "w-full border rounded px-2 py-1" %>
+  </div>
+
+  <!-- Content -->
+  <div class="mb-4">
+    <%= form.label :content, "Content", class: "block font-bold mb-1" %>
+    <%= form.text_area :content, rows: 6, required: true, class: "w-full border rounded px-2 py-1" %>
+  </div>
+
+  <!-- Order -->
+  <div class="mb-4">
+    <%= form.label :order, "Order", class: "block font-bold mb-1" %>
+    <%= form.number_field :order, required: true, class: "w-full border rounded px-2 py-1" %>
+  </div>
+
+  <!-- Image upload -->
+  <div class="mb-4">
+    <%= form.label :image, "Upload Image", class: "block font-bold mb-1" %>
+    <%= form.file_field :image, class: "w-full border rounded px-2 py-1" %>
+
+    <% if @page.image.attached? %>
+      <div class="mt-2">
+        <%= image_tag @page.image.variant(resize_to_limit: [300, 300]) %>
+      </div>
+    <% end %>
+  </div>
+
+  <!-- Video upload -->
+  <div class="mb-4">
+    <%= form.label :video, "Upload Video", class: "block font-bold mb-1" %>
+    <%= form.file_field :video, class: "w-full border rounded px-2 py-1" %>
+
+    <% if @page.video.attached? %>
+      <div class="mt-2">
+        <%= video_tag url_for(@page.video), controls: true, size: "320x240" %>
+      </div>
+    <% end %>
+  </div>
+
+  <%= form.submit class: "bg-blue-600 text-white px-4 py-2 rounded" %>
+<% end %>

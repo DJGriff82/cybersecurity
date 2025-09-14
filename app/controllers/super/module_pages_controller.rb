@@ -1,15 +1,16 @@
+# app/controllers/super/module_pages_controller.rb
 module Super
-  class TrainingModulePagesController < BaseController
+  class ModulePagesController < BaseController
     before_action :set_course
     before_action :set_training_module
     before_action :set_page, only: [:edit, :update, :destroy]
 
     def new
-      @page = @training_module.training_module_pages.new
+      @page = @training_module.module_pages.new
     end
 
     def create
-      @page = @training_module.training_module_pages.new(page_params)
+      @page = @training_module.module_pages.new(page_params)
       if @page.save
         redirect_to edit_super_course_path(@course), notice: "Page created."
       else
@@ -17,8 +18,7 @@ module Super
       end
     end
 
-    def edit
-    end
+    def edit; end
 
     def update
       if @page.update(page_params)
@@ -44,11 +44,12 @@ module Super
     end
 
     def set_page
-      @page = @training_module.training_module_pages.find(params[:id])
+      @page = @training_module.module_pages.find(params[:id])
     end
 
-    def page_params
-      params.require(:training_module_page).permit(:title, :content, :order)
-    end
+   def page_params
+  params.require(:module_page).permit(:title, :content, :order, :image, :video)
+end
+
   end
 end

@@ -1,14 +1,14 @@
+# app/controllers/super/training_modules_controller.rb
 module Super
   class TrainingModulesController < BaseController
     before_action :set_course
     before_action :set_training_module, only: [:show, :edit, :update, :destroy]
 
     def index
-      @training_modules = @course.training_modules.order(:order)
+      @training_modules = @course.training_modules
     end
 
-    def show
-    end
+    def show; end
 
     def new
       @training_module = @course.training_modules.new
@@ -17,18 +17,17 @@ module Super
     def create
       @training_module = @course.training_modules.new(training_module_params)
       if @training_module.save
-        redirect_to super_course_path(@course), notice: "Training module was successfully created."
+        redirect_to super_course_path(@course), notice: "Training module created."
       else
         render :new
       end
     end
 
-    def edit
-    end
+    def edit; end
 
     def update
       if @training_module.update(training_module_params)
-        redirect_to super_course_path(@course), notice: "Training module was successfully updated."
+        redirect_to super_course_path(@course), notice: "Training module updated."
       else
         render :edit
       end
@@ -36,7 +35,7 @@ module Super
 
     def destroy
       @training_module.destroy
-      redirect_to super_course_path(@course), notice: "Training module was successfully deleted."
+      redirect_to super_course_path(@course), notice: "Training module deleted."
     end
 
     private
