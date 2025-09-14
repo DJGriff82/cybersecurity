@@ -10,7 +10,9 @@ Rails.application.routes.draw do
   resources :users
   resources :categories
   resources :courses do
-    resources :training_modules
+    resources :training_modules do
+      resources :training_module_pages
+    end
   end
   get 'analytics', to: 'analytics#index'
 end

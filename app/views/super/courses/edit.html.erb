@@ -73,6 +73,19 @@
     <div class="mt-8 bg-white shadow-md rounded px-8 pt-6 pb-8">
       <h2 class="text-xl font-bold text-gray-900 mb-4">Training Modules</h2>
 
+<h3 class="font-bold text-lg mt-4">Pages</h3>
+<% training_module.training_module_pages.each do |page| %>
+  <div class="flex justify-between py-2 border-b">
+    <span><%= page.order %>. <%= page.title %></span>
+    <div class="space-x-2">
+      <%= link_to 'Edit', edit_super_course_training_module_training_module_page_path(@course, training_module, page), class: 'text-yellow-600' %>
+      <%= link_to 'Delete', super_course_training_module_training_module_page_path(@course, training_module, page), method: :delete, data: { confirm: 'Are you sure?' }, class: 'text-red-600' %>
+    </div>
+  </div>
+<% end %>
+<%= link_to 'Add Page', new_super_course_training_module_training_module_page_path(@course, training_module), class: 'bg-green-600 text-white px-3 py-1 rounded mt-2 inline-block' %>
+
+
       <% if @course.training_modules.any? %>
         <ul class="divide-y divide-gray-200">
           <% @course.training_modules.order(:order).each do |training_module| %>
@@ -83,8 +96,11 @@
                   <p class="text-sm text-gray-500">Order: <%= training_module.order %></p>
                 </div>
                 <div class="space-x-2">
-                  <%= link_to 'Edit', edit_super_training_module_path(training_module), class: 'text-yellow-600 hover:text-yellow-900 text-sm' %>
-                  <%= link_to 'Delete', super_training_module_path(training_module), method: :delete, data: { confirm: 'Are you sure?' }, class: 'text-red-600 hover:text-red-900 text-sm' %>
+                  <div class="space-x-2">
+  <%= link_to 'Edit', edit_super_course_training_module_path(@course, training_module), class: 'text-yellow-600 hover:text-yellow-900 text-sm' %>
+  <%= link_to 'Delete', super_course_training_module_path(@course, training_module), method: :delete, data: { confirm: 'Are you sure?' }, class: 'text-red-600 hover:text-red-900 text-sm' %>
+</div>
+                  
                 </div>
               </div>
             </li>

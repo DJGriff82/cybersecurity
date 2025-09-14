@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_09_13_215609) do
+ActiveRecord::Schema[8.0].define(version: 2025_09_14_095851) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -56,11 +56,31 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_13_215609) do
     t.index ["company_id"], name: "index_courses_on_company_id"
   end
 
+  create_table "module_pages", force: :cascade do |t|
+    t.bigint "training_module_id", null: false
+    t.string "title"
+    t.text "content"
+    t.integer "order"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["training_module_id"], name: "index_module_pages_on_training_module_id"
+  end
+
   create_table "posts", force: :cascade do |t|
     t.string "title"
     t.string "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "training_module_pages", force: :cascade do |t|
+    t.bigint "training_module_id", null: false
+    t.string "title"
+    t.text "content"
+    t.integer "order"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["training_module_id"], name: "index_training_module_pages_on_training_module_id"
   end
 
   create_table "training_modules", force: :cascade do |t|
@@ -108,4 +128,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_13_215609) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["role"], name: "index_users_on_role"
   end
+
+  add_foreign_key "module_pages", "training_modules"
+  add_foreign_key "training_module_pages", "training_modules"
 end
