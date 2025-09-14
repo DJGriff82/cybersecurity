@@ -1,5 +1,6 @@
 class Course < ApplicationRecord
   belongs_to :creator, class_name: 'User', foreign_key: 'created_by'
+  
   belongs_to :category, optional: true
   belongs_to :company, optional: true  # Add this line
   has_many :training_modules, -> { order(:order) }, dependent: :destroy

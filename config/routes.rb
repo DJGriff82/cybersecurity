@@ -5,13 +5,15 @@
 Rails.application.routes.draw do
   # Super user routes
   namespace :super do
-    root to: 'dashboard#index'
-    resources :companies
-    resources :users
-    resources :categories
-    resources :courses
-    get 'analytics', to: 'analytics#index'
+  root to: 'dashboard#index'
+  resources :companies
+  resources :users
+  resources :categories
+  resources :courses do
+    resources :training_modules
   end
+  get 'analytics', to: 'analytics#index'
+end
 
   # Admin routes
   namespace :admin do

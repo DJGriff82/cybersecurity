@@ -1,2 +1,70 @@
 <h1>Super::Courses#new</h1>
-<p>Find me in app/views/super/courses/new.html.erb</p>
+
+<div class="container mx-auto px-4 py-8">
+  <div class="max-w-2xl mx-auto">
+    <h1 class="text-2xl font-bold text-gray-900 mb-6">Create New Course</h1>
+
+    <%= form_with(model: [:super, @course], class: "bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4") do |form| %>
+      <% if @course.errors.any? %>
+        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+          <h2 class="font-bold"><%= pluralize(@course.errors.count, "error") %> prohibited this course from being saved:</h2>
+          <ul>
+            <% @course.errors.each do |error| %>
+              <li><%= error.full_message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="mb-4">
+        <%= form.label :title, "Course Title", class: "block text-gray-700 text-sm font-bold mb-2" %>
+        <%= form.text_field :title, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline", required: true %>
+      </div>
+
+      <div class="mb-4">
+        <%= form.label :description, "Description", class: "block text-gray-700 text-sm font-bold mb-2" %>
+        <%= form.text_area :description, rows: 4, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline", required: true %>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4 mb-4">
+        <div>
+          <%= form.label :duration, "Duration (minutes)", class: "block text-gray-700 text-sm font-bold mb-2" %>
+          <%= form.number_field :duration, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline", required: true %>
+        </div>
+
+        <div>
+          <%= form.label :difficulty, "Difficulty", class: "block text-gray-700 text-sm font-bold mb-2" %>
+          <%= form.select :difficulty, Course.difficulties.keys.map { |d| [d.titleize, d] }, {}, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4 mb-4">
+        <% if Company.any? %>
+          <div>
+            <%= form.label :company_id, "Company (optional)", class: "block text-gray-700 text-sm font-bold mb-2" %>
+            <%= form.select :company_id, Company.all.map { |c| [c.name, c.id] }, { include_blank: "All Companies" }, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+          </div>
+        <% end %>
+
+        <% if Category.any? %>
+          <div>
+            <%= form.label :category_id, "Category (optional)", class: "block text-gray-700 text-sm font-bold mb-2" %>
+            <%= form.select :category_id, Category.all.map { |c| [c.name, c.id] }, { include_blank: "Select Category" }, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+          </div>
+        <% end %>
+      </div>
+
+      <div class="mb-4">
+        <label class="flex items-center">
+          <%= form.check_box :is_active, class: "form-checkbox", checked: true %>
+          <span class="ml-2 text-gray-700 text-sm">Active Course</span>
+        </label>
+      </div>
+
+      <div class="flex items-center justify-between">
+        <%= link_to 'Cancel', super_courses_path, class: "bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" %>
+        <%= form.submit "Create Course", class: "bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" %>
+      </div>
+    <% end %>
+  </div>
+</div>
