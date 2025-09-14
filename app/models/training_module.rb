@@ -1,9 +1,7 @@
-class TrainingModule < ApplicationRecord
+cclass TrainingModule < ApplicationRecord
   belongs_to :course
   has_many :user_progresses, dependent: :destroy
+  has_many :pages, -> { order(:order) }, dependent: :destroy
 
-  validates :title, :content, :order, presence: true
-  validates :order, numericality: { only_integer: true }
-
-  default_scope { order(:order) }
+  validates :title, presence: true
 end

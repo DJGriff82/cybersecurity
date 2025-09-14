@@ -1,0 +1,31 @@
+<%= form_with model: [ :super, @course, training_module ], local: true do |form| %>
+  <% if training_module.errors.any? %>
+    <div class="errors">
+      <h2><%= pluralize(training_module.errors.count, "error") %> prevented saving:</h2>
+      <ul>
+        <% training_module.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :title %><br>
+    <%= form.text_field :title %>
+  </div>
+
+  <div>
+    <%= form.label :description %><br>
+    <%= form.text_area :description %>
+  </div>
+
+  <div>
+    <%= form.label :content %><br>
+    <%= form.text_area :content %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

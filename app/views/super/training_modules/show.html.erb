@@ -1,0 +1,7 @@
+<h1><%= @training_module.title %></h1>
+
+<p><%= @training_module.description %></p>
+<p><%= @training_module.content %></p>
+
+<%= link_to "Edit", edit_super_course_training_module_path(@course, @training_module) %> |
+<%= link_to "Back", super_course_training_modules_path(@course) %>
