@@ -1,0 +1,37 @@
+<!-- app/views/admin/dashboard/index.html.erb -->
+<div class="container mx-auto px-4 py-8">
+  <h1 class="text-2xl font-bold text-gray-900 mb-6">Admin Dashboard</h1>
+  
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+    <div class="bg-white p-6 rounded-lg shadow">
+      <h3 class="text-lg font-semibold text-gray-600">Company Users</h3>
+      <p class="text-3xl font-bold text-gray-900">
+        <%= current_user.company ? current_user.company.users.count : 0 %>
+      </p>
+    </div>
+    
+    <div class="bg-white p-6 rounded-lg shadow">
+      <h3 class="text-lg font-semibold text-gray-600">Active Courses</h3>
+      <p class="text-3xl font-bold text-blue-600"><%= Course.active.count %></p>
+    </div>
+    
+    <div class="bg-white p-6 rounded-lg shadow">
+      <h3 class="text-lg font-semibold text-gray-600">Company</h3>
+      <p class="text-lg font-medium text-gray-900">
+        <%= current_user.company ? current_user.company.name : 'No Company Assigned' %>
+      </p>
+    </div>
+  </div>
+
+  <div class="bg-white p-6 rounded-lg shadow">
+    <h2 class="text-xl font-semibold mb-4">Admin Actions</h2>
+    <div class="space-y-3">
+      <% if current_user.company %>
+        <%= link_to 'Manage Users', admin_users_path, class: 'block px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700' %>
+        <%= link_to 'View Progress Reports', admin_user_progress_index_path, class: 'block px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700' %>
+      <% else %>
+        <p class="text-red-600">No company assigned. Please contact a super administrator.</p>
+      <% end %>
+    </div>
+  </div>
+</div>

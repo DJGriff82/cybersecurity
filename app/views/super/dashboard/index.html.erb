@@ -1,0 +1,30 @@
+<!-- app/views/super/dashboard/index.html.erb -->
+<div class="container mx-auto px-4 py-8">
+  <h1 class="text-2xl font-bold text-gray-900 mb-6">Super Admin Dashboard</h1>
+  
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+    <div class="bg-white p-6 rounded-lg shadow">
+      <h3 class="text-lg font-semibold text-gray-600">Total Companies</h3>
+      <p class="text-3xl font-bold text-gray-900"><%= Company.count %></p>
+    </div>
+    
+    <div class="bg-white p-6 rounded-lg shadow">
+      <h3 class="text-lg font-semibold text-gray-600">Total Users</h3>
+      <p class="text-3xl font-bold text-green-600"><%= User.count %></p>
+    </div>
+    
+    <div class="bg-white p-6 rounded-lg shadow">
+      <h3 class="text-lg font-semibold text-gray-600">Active Courses</h3>
+      <p class="text-3xl font-bold text-blue-600"><%= Course.where(is_active: true).count %></p>
+    </div>
+  </div>
+
+  <div class="bg-white p-6 rounded-lg shadow">
+    <h2 class="text-xl font-semibold mb-4">Quick Actions</h2>
+    <div class="space-y-3">
+      <%= link_to 'Manage Companies', super_companies_path, class: 'block px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700' %>
+      <%= link_to 'Manage Users', super_users_path, class: 'block px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700' %>
+      <%= link_to 'Manage Courses', super_courses_path, class: 'block px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700' %>
+    </div>
+  </div>
+</div>

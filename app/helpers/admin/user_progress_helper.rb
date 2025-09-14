@@ -1,0 +1,2 @@
+module Admin::UserProgressHelper
+end

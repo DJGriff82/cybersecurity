@@ -1,0 +1,2 @@
+module Super::AnalyticsHelper
+end

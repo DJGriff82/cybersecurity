@@ -1,0 +1,56 @@
+<!-- app/views/courses/index.html.erb -->
+<div class="container mx-auto px-4 py-8">
+  <h1 class="text-2xl font-bold text-gray-900 mb-6">Available Courses</h1>
+  
+  <!-- Category Filter -->
+  <% if @categories.any? %>
+    <div class="mb-8">
+      <h2 class="text-lg font-semibold text-gray-700 mb-3">Filter by Category</h2>
+      <div class="flex flex-wrap gap-2">
+        <%= link_to 'All Courses', courses_path, 
+                    class: "px-4 py-2 rounded #{params[:category_id].blank? ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700'}" %>
+        
+        <% @categories.each do |category| %>
+          <%= link_to category.name, courses_path(category_id: category.id),
+                      class: "px-4 py-2 rounded #{params[:category_id].to_i == category.id ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700'}" %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+  
+  <!-- Courses Grid -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <% if @courses.any? %>
+      <% @courses.each do |course| %>
+        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+          <div class="p-6">
+            <% if course.category %>
+              <span class="inline-block bg-purple-100 text-purple-800 text-xs font-semibold px-2 py-1 rounded mb-2">
+                <%= course.category.name %>
+              </span>
+            <% end %>
+            
+            <h3 class="text-xl font-semibold text-gray-900 mb-2"><%= course.title %></h3>
+            <p class="text-gray-600 mb-4"><%= truncate(course.description, length: 100) %></p>
+            
+            <div class="flex justify-between items-center mb-4">
+              <span class="px-2 py-1 text-xs font-semibold rounded 
+                         <%= course.difficulty == 'beginner' ? 'bg-green-100 text-green-800' : 
+                             course.difficulty == 'intermediate' ? 'bg-yellow-100 text-yellow-800' : 
+                             'bg-red-100 text-red-800' %>">
+                <%= course.difficulty&.titleize || 'Not Set' %>
+              </span>
+              <span class="text-sm text-gray-500"><%= course.duration %> min</span>
+            </div>
+            
+            <%= link_to 'View Course', course_path(course), class: 'w-full bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 text-center block' %>
+          </div>
+        </div>
+      <% end %>
+    <% else %>
+      <div class="col-span-full text-center py-12">
+        <p class="text-gray-500 text-lg">No courses found for this category.</p>
+      </div>
+    <% end %>
+  </div>
+</div>
