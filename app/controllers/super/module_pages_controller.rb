@@ -48,7 +48,7 @@ module Super
     end
 
    def page_params
-  params.require(:module_page).permit(:title, :content, :order, :image, :video)
+  params.require(:module_page).permit(:title, :content, :position, :image, :video)
 end
 
   end

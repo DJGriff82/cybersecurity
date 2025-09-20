@@ -50,12 +50,12 @@
 
     <% if @course.training_modules.any? %>
       <ul class="divide-y divide-gray-200">
-        <% @course.training_modules.order(:order).each do |training_module| %>
+        <% @course.training_modules.order(:position).each do |training_module| %>
           <li class="py-3">
             <div class="flex justify-between items-center">
               <div>
                 <h3 class="text-lg font-medium text-gray-900"><%= training_module.title %></h3>
-                <p class="text-sm text-gray-500">Order: <%= training_module.order %></p>
+                <p class="text-sm text-gray-500">Order: <%= training_module.position %></p>
               </div>
               <div class="space-x-2">
                 <%= link_to 'Edit', edit_super_course_training_module_path(@course, training_module), class: 'text-yellow-600 hover:text-yellow-900 text-sm' %>

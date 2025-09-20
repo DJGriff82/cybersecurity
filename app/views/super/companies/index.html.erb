@@ -1,2 +1,29 @@
 <h1>Super::Companies#index</h1>
 <p>Find me in app/views/super/companies/index.html.erb</p>
+<h1>Companies</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Industry</th>
+      <th>Created At</th>
+    </tr>
+  </thead>
+ <tbody>
+  <% @companies.each do |company| %>
+    <tr>
+      <td><%= company.name %></td>
+      <td><%= company.subdomain %></td>
+      <td><%= company.contact_email %></td>
+      <td><%= company.subscription_status %></td>
+      <td><%= company.max_users %></td>
+      <td><%= company.industry %></td>
+      <td><%= truncate(company.description, length: 50) %></td>
+      <td><%= company.created_at.strftime("%Y-%m-%d") %></td>
+    </tr>
+  <% end %>
+</tbody>
+
+</table>
+

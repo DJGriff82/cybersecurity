@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_09_14_201849) do
+ActiveRecord::Schema[8.0].define(version: 2025_09_19_203843) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -68,6 +68,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_14_201849) do
     t.integer "max_users"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "description"
+    t.string "industry"
   end
 
   create_table "courses", force: :cascade do |t|
@@ -88,7 +90,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_14_201849) do
     t.bigint "training_module_id", null: false
     t.string "title"
     t.text "content"
-    t.integer "order"
+    t.integer "position"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["training_module_id"], name: "index_module_pages_on_training_module_id"
@@ -103,12 +105,12 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_14_201849) do
 
   create_table "training_modules", force: :cascade do |t|
     t.string "title"
-    t.text "content"
     t.string "video_url"
     t.integer "course_id"
-    t.integer "order"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "description"
+    t.integer "position"
   end
 
   create_table "user_progresses", force: :cascade do |t|
@@ -130,11 +132,11 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_14_201849) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "first_name"
+    t.string "last_name"
     t.integer "role", default: 0
     t.integer "company_id"
     t.datetime "deleted_at"
-    t.string "first_name"
-    t.string "last_name"
     t.integer "sign_in_count", default: 0, null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"

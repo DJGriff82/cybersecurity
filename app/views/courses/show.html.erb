@@ -44,10 +44,10 @@
     <% if @course.training_modules.any? %>
       <h2 class="text-xl font-bold text-gray-900 mb-4">Training Modules</h2>
       <ul class="divide-y divide-gray-200">
-        <% @course.training_modules.order(:order).each do |tm| %>
+        <% @course.training_modules.order(:position).each do |tm| %>
           <li class="py-3">
             <h3 class="text-lg font-medium text-gray-900"><%= tm.title %></h3>
-            <p class="text-sm text-gray-500">Order: <%= tm.order %></p>
+            <p class="text-sm text-gray-500">Order: <%= tm.position %></p>
 
             <% if tm.module_pages.any? %>
               <%= link_to "▶ Start Module",

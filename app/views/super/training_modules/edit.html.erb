@@ -12,8 +12,8 @@
   </div>
 
   <div class="mb-4">
-    <%= form.label :order, "Order", class: "block font-bold mb-1" %>
-    <%= form.number_field :order, class: "w-full border rounded px-2 py-1", required: true %>
+    <%= form.label :position, "Position", class: "block font-bold mb-1" %>
+    <%= form.number_field :position, class: "w-full border rounded px-2 py-1", required: true %>
   </div>
 
   <%= form.submit "Save Module",
@@ -37,7 +37,7 @@
         <div class="flex justify-between items-center">
           <div>
             <h3 class="font-bold"><%= page.title %></h3>
-            <p class="text-gray-600 text-sm">Order: <%= page.order %></p>
+            <p class="text-gray-600 text-sm">Order: <%= page.position %></p>
           </div>
           <div class="space-x-2">
             <%= link_to "Edit",

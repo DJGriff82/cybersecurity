@@ -8,6 +8,7 @@ module Super
     end
 
     def show
+      @users = User.includes(:company).order(created_at: :desc)
     end
 
     def new

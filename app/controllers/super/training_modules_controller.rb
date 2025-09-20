@@ -49,7 +49,7 @@ module Super
     end
 
     def training_module_params
-      params.require(:training_module).permit(:title, :content, :order)
-    end
+  params.require(:training_module).permit(:title, :description, :video_url, :position)
+end
   end
 end

@@ -5,7 +5,7 @@ class Course < ApplicationRecord
   belongs_to :category, optional: true
   belongs_to :company, optional: true
 
-  has_many :training_modules, -> { order(:order) }, dependent: :destroy
+  has_many :training_modules, -> { order(:position) }, dependent: :destroy
   has_many :assessments, dependent: :destroy
 
   # Validations

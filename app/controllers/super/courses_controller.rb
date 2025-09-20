@@ -8,7 +8,7 @@ module Super
     end
 
     def show
-      @training_modules = @course.training_modules.order(:order)
+     @training_modules = @course.training_modules.order(:position)
     end
 
     def new

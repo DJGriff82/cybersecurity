@@ -4,6 +4,8 @@ class ModulePage < ApplicationRecord
   has_one_attached :image
   has_one_attached :video
 
-  validates :title, :content, :order, presence: true
-  validates :order, numericality: { only_integer: true }
+  validates :title, :content, :position, presence: true
+  validates :position, numericality: { only_integer: true }
+
+  default_scope { order(:position) }
 end

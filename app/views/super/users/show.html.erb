@@ -1,2 +1,28 @@
 <h1>Super::Users#show</h1>
 <p>Find me in app/views/super/users/show.html.erb</p>
+<h1>Users</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Role</th>
+      <th>Company</th>
+      <th>Sign in count</th>
+      <th>Last sign in</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= [user.first_name, user.last_name].compact.join(" ") %></td>
+        <td><%= user.email %></td>
+        <td><%= user.role %></td>
+        <td><%= user.company&.name %></td>
+        <td><%= user.sign_in_count %></td>
+        <td><%= user.last_sign_in_at&.strftime("%Y-%m-%d %H:%M") %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
