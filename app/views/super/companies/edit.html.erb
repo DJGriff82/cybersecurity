@@ -47,6 +47,12 @@
     <%= f.text_area :description %>
   </div>
 
+  <!-- ✅ New subscription expiry field -->
+  <div>
+    <%= f.label :subscription_expires_at, "Subscription Expiry Date" %>
+    <%= f.date_field :subscription_expires_at %>
+  </div>
+
   <div>
     <%= f.submit "Update Company" %>
   </div>

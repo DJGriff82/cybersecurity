@@ -1,2 +1,4 @@
-<h1>Super::Companies#new</h1>
-<p>Find me in app/views/super/companies/new.html.erb</p>
+<h1>New Company</h1>
+<%= render "form", company: @company %>
+
+<%= link_to "Back", super_companies_path %>

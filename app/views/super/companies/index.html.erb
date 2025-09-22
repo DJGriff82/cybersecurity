@@ -1,24 +1,53 @@
 <h1>Companies</h1>
 
-<table>
+<div class="filters" style="margin-bottom: 1rem;">
+  <strong>Filter:</strong>
+  <%= link_to "All", super_companies_path %> |
+  <%= link_to "Active", super_companies_path(filter: "active") %> |
+  <%= link_to "Expired", super_companies_path(filter: "expired") %> |
+  <%= link_to "Archived", super_companies_path(filter: "archived") %>
+</div>
+
+<table border="1" cellpadding="5" cellspacing="0" style="width:100%; border-collapse: collapse;">
   <thead>
     <tr>
       <th>Name</th>
       <th>Industry</th>
       <th>Contact Email</th>
       <th>Subscription</th>
+      <th>Expiry Date</th>
       <th>Max Users</th>
+      <th>Active Users</th>
       <th>Status</th>
       <th>Actions</th>
     </tr>
   </thead>
   <tbody>
     <% @companies.each do |company| %>
-      <tr class="<%= 'archived' if company.archived? %>">
+      <% row_class =
+        if company.archived?
+          "background-color:#f0f0f0;" # gray for archived
+        elsif company.subscription_expires_at.present? && !company.subscription_active?
+          "background-color:#ffe5e5;" # red for expired
+        else
+          "background-color:#e5ffe5;" # green for active
+        end %>
+
+      <tr style="<%= row_class %>">
         <td><%= company.name %></td>
         <td><%= company.industry %></td>
         <td><%= company.contact_email %></td>
         <td><%= company.subscription_status %></td>
+        <td>
+          <%= company.subscription_expires_at&.strftime("%Y-%m-%d") || "Not set" %>
+          <% if company.subscription_expires_at.present? %>
+            <% if company.subscription_active? %>
+              (<span style="color:green;"><%= company.subscription_days_left %> days left</span>)
+            <% else %>
+              <span style="color:red;">Expired</span>
+            <% end %>
+          <% end %>
+        </td>
         <td><%= company.max_users %></td>
         <td><%= company.active_user_count %></td>
         <td><%= company.archived? ? "Archived" : "Active" %></td>

@@ -12,7 +12,17 @@ class Company < ApplicationRecord
   scope :active, -> { where(deleted_at: nil) }
   scope :archived, -> { where.not(deleted_at: nil) }
 
-  # --- New helpers ---
+  # --- New subscription helpers ---
+  def subscription_active?
+    subscription_expires_at.nil? || subscription_expires_at.future?
+  end
+
+  def subscription_days_left
+    return nil unless subscription_expires_at
+    (subscription_expires_at.to_date - Date.today).to_i
+  end
+
+  # --- User helpers ---
   def active_users
     users.where(deleted_at: nil)
   end
@@ -25,7 +35,7 @@ class Company < ApplicationRecord
     max_users.present? && active_user_count >= max_users
   end
 
-  # Soft delete
+  # --- Soft delete ---
   def soft_delete
     update(deleted_at: Time.current)
   end

@@ -1,13 +1,23 @@
-# app/controllers/super/companies_controller.rb
 class Super::CompaniesController < ApplicationController
   before_action :set_company, only: [:show, :edit, :update, :destroy, :restore]
 
   def index
-    @companies = Company.order(created_at: :desc)
+    @filter = params[:filter]
+
+    @companies = Company.all
+
+    case @filter
+    when "active"
+      @companies = @companies.active.select { |c| c.subscription_active? }
+    when "expired"
+      @companies = @companies.active.reject { |c| c.subscription_active? }
+    when "archived"
+      @companies = @companies.archived
+    end
   end
 
   def show
-    @users = @company.users.order(created_at: :desc)
+    @users = @company.users
   end
 
   def new
@@ -15,7 +25,7 @@ class Super::CompaniesController < ApplicationController
   end
 
   def edit
-    @users = @company.users.order(created_at: :desc)
+    @users = @company.users
   end
 
   def create
@@ -36,13 +46,15 @@ class Super::CompaniesController < ApplicationController
   end
 
   def destroy
-     @company.soft_delete
-  redirect_to super_companies_url, notice: "Company archived."
+    @company.soft_delete
+    redirect_to super_companies_url, notice: "Company was successfully archived."
   end
-def restore
-  @company.restore
-  redirect_to super_companies_url, notice: "Company restored."
-end
+
+  def restore
+    @company.restore
+    redirect_to super_companies_url, notice: "Company was successfully restored."
+  end
+
   private
 
   def set_company
@@ -55,9 +67,10 @@ end
       :subdomain,
       :contact_email,
       :subscription_status,
+      :subscription_expires_at,
       :max_users,
-      :description,
-      :industry
+      :industry,
+      :description
     )
   end
 end

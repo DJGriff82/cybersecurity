@@ -1,0 +1,52 @@
+<%= form_with(model: [:super, @company]) do |f| %>
+  <% if @company.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@company.errors.count, "error") %> prohibited this company from being saved:</h2>
+      <ul>
+        <% @company.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+
+  <div>
+    <%= f.label :subdomain %><br>
+    <%= f.text_field :subdomain %>
+  </div>
+
+  <div>
+    <%= f.label :contact_email %><br>
+    <%= f.email_field :contact_email %>
+  </div>
+
+  <div>
+    <%= f.label :subscription_status %><br>
+    <%= f.text_field :subscription_status %>
+  </div>
+
+  <div>
+    <%= f.label :max_users %><br>
+    <%= f.number_field :max_users %>
+  </div>
+
+  <div>
+    <%= f.label :description %><br>
+    <%= f.text_area :description %>
+  </div>
+
+  <!-- ✅ Add subscription expiry field here -->
+  <div>
+    <%= f.label :subscription_expires_at, "Subscription Expiry Date" %><br>
+    <%= f.date_field :subscription_expires_at %>
+  </div>
+
+  <div>
+    <%= f.submit %>
+  </div>
+<% end %>

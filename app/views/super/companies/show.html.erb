@@ -4,6 +4,7 @@
 <p><strong>Contact Email:</strong> <%= @company.contact_email %></p>
 <p><strong>Subscription Status:</strong> <%= @company.subscription_status %></p>
 <p><strong>Max Users:</strong> <%= @company.max_users %></p>
+
 <p>
   <strong>Active Members:</strong>
   <%= @company.active_user_count %>
@@ -11,7 +12,22 @@
 <% if @company.user_limit_reached? %>
   <p style="color:red;">⚠️ User limit reached!</p>
 <% end %>
+
 <p><strong>Description:</strong> <%= @company.description %></p>
+
+<!-- ✅ Subscription expiry details -->
+<p>
+  <strong>Subscription Expires:</strong>
+  <%= @company.subscription_expires_at&.strftime("%Y-%m-%d") || "Not set" %>
+</p>
+
+<% if @company.subscription_active? %>
+  <p style="color:green;">Active (<%= @company.subscription_days_left %> days left)</p>
+<% else %>
+  <p style="color:red;">❌ Subscription Expired</p>
+<% end %>
+
+<hr>
 
 <%= link_to "Edit Company", edit_super_company_path(@company) %> |
 <%= link_to "Manage Users", super_company_users_path(@company) %> |
