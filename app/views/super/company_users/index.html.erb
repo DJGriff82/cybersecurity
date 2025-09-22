@@ -1,0 +1,48 @@
+<h1>Users for <%= @company.name %></h1>
+
+<p><strong>Active Users:</strong> <%= @company.users.where(deleted_at: nil).count %> /
+   <%= @company.max_users %></p>
+
+<div class="filters">
+  <%= link_to "Active", super_company_users_path(@company, filter: "active"),
+              class: (params[:filter].nil? || params[:filter] == "active" ? "active" : "") %> |
+  <%= link_to "Archived", super_company_users_path(@company, filter: "archived"),
+              class: (params[:filter] == "archived" ? "active" : "") %> |
+  <%= link_to "All", super_company_users_path(@company, filter: "all"),
+              class: (params[:filter] == "all" ? "active" : "") %>
+</div>
+
+<%= link_to "Add New User", new_super_company_user_path(@company) %> |
+<%= link_to "Back to Company", super_company_path(@company) %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Role</th>
+      <th>Status</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr class="<%= 'archived' if user.deleted_at.present? %>">
+        <td><%= user.full_name %></td>
+        <td><%= user.email %></td>
+        <td><%= user.role.humanize %></td>
+        <td><%= user.deleted_at.present? ? "Archived" : "Active" %></td>
+        <td>
+          <% if user.deleted_at.present? %>
+            <%= link_to "Restore", restore_super_company_user_path(@company, user),
+                         data: { turbo_method: :patch, confirm: "Restore this user?" } %>
+          <% else %>
+            <%= link_to "Edit", edit_super_company_user_path(@company, user) %> |
+            <%= link_to "Archive", super_company_user_path(@company, user),
+                         data: { turbo_method: :delete, confirm: "Archive this user?" } %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

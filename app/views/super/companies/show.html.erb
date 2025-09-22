@@ -1,2 +1,18 @@
-<h1>Super::Companies#show</h1>
-<p>Find me in app/views/super/companies/show.html.erb</p>
+<h1><%= @company.name %></h1>
+
+<p><strong>Industry:</strong> <%= @company.industry %></p>
+<p><strong>Contact Email:</strong> <%= @company.contact_email %></p>
+<p><strong>Subscription Status:</strong> <%= @company.subscription_status %></p>
+<p><strong>Max Users:</strong> <%= @company.max_users %></p>
+<p>
+  <strong>Active Members:</strong>
+  <%= @company.active_user_count %>
+</p>
+<% if @company.user_limit_reached? %>
+  <p style="color:red;">⚠️ User limit reached!</p>
+<% end %>
+<p><strong>Description:</strong> <%= @company.description %></p>
+
+<%= link_to "Edit Company", edit_super_company_path(@company) %> |
+<%= link_to "Manage Users", super_company_users_path(@company) %> |
+<%= link_to "Back to Companies", super_companies_path %>

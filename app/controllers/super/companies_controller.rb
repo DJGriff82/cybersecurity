@@ -1,11 +1,13 @@
+# app/controllers/super/companies_controller.rb
 class Super::CompaniesController < ApplicationController
-  before_action :set_company, only: [:show, :edit, :update, :destroy]
+  before_action :set_company, only: [:show, :edit, :update, :destroy, :restore]
 
   def index
-    @companies = Company.all
+    @companies = Company.order(created_at: :desc)
   end
 
   def show
+    @users = @company.users.order(created_at: :desc)
   end
 
   def new
@@ -13,6 +15,7 @@ class Super::CompaniesController < ApplicationController
   end
 
   def edit
+    @users = @company.users.order(created_at: :desc)
   end
 
   def create
@@ -33,10 +36,13 @@ class Super::CompaniesController < ApplicationController
   end
 
   def destroy
-    @company.destroy
-    redirect_to super_companies_url, notice: "Company was successfully deleted."
+     @company.soft_delete
+  redirect_to super_companies_url, notice: "Company archived."
   end
-
+def restore
+  @company.restore
+  redirect_to super_companies_url, notice: "Company restored."
+end
   private
 
   def set_company
@@ -44,6 +50,14 @@ class Super::CompaniesController < ApplicationController
   end
 
   def company_params
-    params.require(:company).permit(:name, :subdomain, :contact_email, :subscription_status, :max_users, :description)
+    params.require(:company).permit(
+      :name,
+      :subdomain,
+      :contact_email,
+      :subscription_status,
+      :max_users,
+      :description,
+      :industry
+    )
   end
 end

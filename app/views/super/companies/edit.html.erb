@@ -1,2 +1,81 @@
-<h1>Super::Companies#edit</h1>
-<p>Find me in app/views/super/companies/edit.html.erb</p>
+<h1>Edit Company</h1>
+
+<%= form_with(model: [:super, @company], local: true) do |f| %>
+  <% if @company.errors.any? %>
+    <div class="errors">
+      <h2><%= pluralize(@company.errors.count, "error") %> prevented saving:</h2>
+      <ul>
+        <% @company.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+
+  <div>
+    <%= f.label :subdomain %>
+    <%= f.text_field :subdomain %>
+  </div>
+
+  <div>
+    <%= f.label :contact_email %>
+    <%= f.email_field :contact_email %>
+  </div>
+
+  <div>
+    <%= f.label :subscription_status %>
+    <%= f.text_field :subscription_status %>
+  </div>
+
+  <div>
+    <%= f.label :max_users %>
+    <%= f.number_field :max_users %>
+  </div>
+
+  <div>
+    <%= f.label :industry %>
+    <%= f.text_field :industry %>
+  </div>
+
+  <div>
+    <%= f.label :description %>
+    <%= f.text_area :description %>
+  </div>
+
+  <div>
+    <%= f.submit "Update Company" %>
+  </div>
+<% end %>
+
+<hr>
+
+<h2>Users in this Company</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Role</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.full_name %></td>
+        <td><%= user.email %></td>
+        <td><%= user.role.humanize %></td>
+        <td>
+          <%= link_to "Edit User", edit_super_user_path(user) %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to "Back to Companies", super_companies_path %>
