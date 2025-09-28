@@ -1,26 +1,23 @@
-
- 
-
 # config/routes.rb
 Rails.application.routes.draw do
   # Super user routes
-    namespace :super do
+  namespace :super do
     root to: 'dashboard#index'
 
     resources :companies do
       member do
-        patch :restore   # adds /super/companies/:id/restore
+        patch :restore   # /super/companies/:id/restore
       end
 
       # Nested company users management
       resources :users, controller: "company_users" do
         member do
-          patch :restore   # adds /super/companies/:company_id/users/:id/restore
+          patch :restore   # /super/companies/:company_id/users/:id/restore
         end
       end
     end
 
-    resources :users     # global users list for supers (if you still want this)
+    resources :users     # global users list for supers
     resources :categories
     resources :courses do
       resources :training_modules do
@@ -29,7 +26,7 @@ Rails.application.routes.draw do
     end
 
     get 'analytics', to: 'analytics#index'
-end
+  end
 
   # Admin routes
   namespace :admin do
@@ -40,26 +37,27 @@ end
   end
 
   # Staff routes
-  resources :courses, only: [:index, :show] do
   resource :profile, only: [:edit, :update], controller: "users/profiles"
-  resources :training_modules, only: [:show] do
-    resources :module_pages, only: [:show], controller: "course_pages"
 
-    member do
-      patch :update_progress
-      post :complete
+  resources :courses, only: [:index, :show] do
+    resources :training_modules, only: [:show] do
+      resources :module_pages, only: [:show], controller: "course_pages"
+
+      member do
+        patch :update_progress
+        post :complete
+      end
     end
+
+    resources :assessments, only: [:show, :create]
   end
-  resources :assessments, only: [:show, :create]
-end
 
   # Authentication
   devise_for :users, controllers: {
     sessions: 'users/sessions',
     passwords: 'users/passwords'
   }
- 
 
+  # Root
   root 'home#index'
-
 end
