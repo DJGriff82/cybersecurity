@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="Cyber Security Rtain LMS Privacy Policy" />
+  <title>Privacy Policy • Cyber Security Rtain LMS</title>
+
+  <style>
+    /* ---------- Base Styles ---------- */
+    :root{
+      --bg: #ffffff;
+      --text: #0f172a;          /* slate-900 */
+      --muted: #475569;         /* slate-600 */
+      --accent: #0ea5e9;        /* sky-500 */
+      --accent-fg: #0b6ea8;
+      --border: #e2e8f0;        /* slate-200 */
+      --card: #ffffff;
+      --code: #0b1020;
+      --kbd-bg:#f1f5f9;
+      --focus:#94d2ff;
+      --shadow: 0 10px 25px rgba(2, 8, 23, .08);
+      color-scheme: light;
+    }
+
+    @media (prefers-color-scheme: dark){
+      :root{
+        --bg: #0b1020;
+        --text: #e5e7eb;
+        --muted: #94a3b8;
+        --accent: #38bdf8;
+        --accent-fg:#7cd3fb;
+        --border: #1f2937;
+        --card: #0e152c;
+        --kbd-bg:#111827;
+        --shadow: 0 12px 28px rgba(0,0,0,.35);
+        color-scheme: dark;
+      }
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body{
+      margin:0;
+      font: 16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    /* ---------- Layout ---------- */
+    .container{
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 2rem 1rem 4rem;
+    }
+
+    header.site-header{
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: saturate(180%) blur(8px);
+      background: color-mix(in oklab, var(--bg) 86%, transparent);
+      border-bottom: 1px solid var(--border);
+    }
+    .header-inner{
+      max-width: 980px;
+      margin: 0 auto;
+      padding: .9rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .brand{
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+      font-weight: 700;
+      letter-spacing: .2px;
+    }
+    .brand .dot{
+      width: 12px; height: 12px; border-radius: 50%;
+      background: var(--accent);
+      display: inline-block;
+      box-shadow: 0 0 0 3px color-mix(in oklab, var(--accent) 20%, transparent);
+    }
+    .print{
+      display: inline-flex; align-items:center; gap:.5rem;
+      border: 1px solid var(--border);
+      background: var(--card);
+      padding: .5rem .75rem;
+      border-radius: .6rem;
+      box-shadow: var(--shadow);
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .hero{
+      padding: 2.5rem 0 1rem;
+    }
+    h1{
+      font-size: clamp(1.6rem, 2.4vw + 1rem, 2.4rem);
+      line-height: 1.2;
+      margin: 0 0 .5rem;
+      letter-spacing: -.3px;
+    }
+    .subtitle{
+      color: var(--muted);
+      margin: 0 0 1rem;
+    }
+    .meta{
+      font-size: .95rem;
+      color: var(--muted);
+    }
+
+    /* ---------- Card & Prose ---------- */
+    .card{
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      padding: 1.25rem;
+    }
+    .prose{
+      --space: 1.1rem;
+    }
+    .prose h2{
+      font-size: 1.35rem;
+      margin: 2rem 0 .5rem;
+      line-height: 1.3;
+    }
+    .prose h3{ font-size: 1.1rem; margin: 1.4rem 0 .4rem; }
+    .prose p{ margin: .7rem 0; }
+    .prose ul, .prose ol{ margin: .6rem 0 .9rem 1.2rem; }
+    .prose li{ margin: .35rem 0; }
+    .prose a{ color: var(--accent); }
+    .prose strong{ font-weight: 700; }
+
+    /* ---------- TOC ---------- */
+    nav.toc{
+      margin: 1.25rem 0 1.75rem;
+      border: 1px dashed var(--border);
+      border-radius: 12px;
+      padding: 1rem;
+      background: color-mix(in oklab, var(--card) 92%, transparent);
+    }
+    .toc h2{
+      margin: 0 0 .4rem;
+      font-size: 1rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+    .toc ul{
+      list-style: none; padding: 0; margin: 0;
+      columns: 1;
+    }
+    .toc a{
+      display: inline-block;
+      padding: .25rem 0;
+      text-decoration: none;
+      color: inherit;
+    }
+    .toc a:hover, .toc a:focus{
+      color: var(--accent);
+      outline: none;
+    }
+
+    /* ---------- Footer ---------- */
+    footer{
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: .95rem;
+    }
+
+    /* ---------- Utilities & Accessibility ---------- */
+    .sr-only{
+      position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
+    }
+    .skip-link{
+      position:absolute; left:-999px; top:auto; width:1px; height:1px; overflow:hidden;
+    }
+    .skip-link:focus{
+      position: fixed; left: 1rem; top: 1rem; width: auto; height: auto;
+      background: var(--card); color: var(--text); padding: .6rem .8rem; border-radius: .5rem;
+      border: 2px solid var(--focus);
+      box-shadow: var(--shadow);
+      z-index: 9999;
+    }
+
+    /* ---------- Print ---------- */
+    @media print{
+      header.site-header, .print, nav.toc { display:none !important; }
+      .container{ padding: 0; max-width: 100%; }
+      .card{ border: none; box-shadow: none; padding: 0; }
+      a{ color: black; text-decoration: none; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#policy">Skip to content</a>
+
+  <header class="site-header" role="banner">
+    <div class="header-inner" aria-label="Site header">
+      <div class="brand" aria-label="Cyber Security Rtain">
+        <span ></span>
+        <span></span>
+      </div>
+      <button class="print" onclick="window.print()" aria-label="Print this policy">
+        <!-- simple printer icon -->
+        <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M6 9V2h12v7M6 13H5a3 3 0 0 1-3-3V8a3 3 0 0 1 3-3h14a3 3 0 0 1 3 3v2a3 3 0 0 1-3 3h-1m-12 0h12v9H6v-9Z"/><path d="M8 17h8M8 20h8M18 8h.01"/></svg>
+        <span>Print</span>
+      </button>
+    </div>
+  </header>
+
+  <main id="policy" class="container" role="main">
+    <section class="hero">
+      <h1>Privacy Policy</h1>
+      <p class="subtitle">Cyber Security Rtain LMS</p>
+      <p class="meta">Last updated: <time datetime="2025-09-28">September 28, 2025</time></p>
+    </section>
+
+    <nav class="toc card" aria-labelledby="toc-heading">
+      <h2 id="toc-heading">Contents</h2>
+      <ul>
+        <li><a href="#introduction">1. Introduction</a></li>
+        <li><a href="#data-we-collect">2. What Data We Collect</a></li>
+        <li><a href="#how-we-use">3. How We Use Your Data</a></li>
+        <li><a href="#legal-basis">4. Legal Basis for Processing</a></li>
+        <li><a href="#retention">5. Data Retention</a></li>
+        <li><a href="#sharing-security">6. Data Sharing &amp; Security</a></li>
+        <li><a href="#gdpr-rights">7. Your Rights Under GDPR</a></li>
+        <li><a href="#intl-transfers">8. International Data Transfers</a></li>
+        <li><a href="#contact">9. Contact Us</a></li>
+      </ul>
+    </nav>
+
+    <article class="card prose" aria-label="Privacy policy content">
+      <section id="introduction">
+        <h2>1. Introduction</h2>
+        <p>Your privacy is important to us. Cyber Security Rtain (“we,” “our,” “us”) is committed to protecting your personal data in compliance with the General Data Protection Regulation (GDPR) and other applicable privacy laws. This Privacy Policy explains what data we collect, how we use it, and the rights you have regarding your personal data.</p>
+      </section>
+
+      <section id="data-we-collect">
+        <h2>2. What Data We Collect</h2>
+        <ul>
+          <li><strong>Identification &amp; login information:</strong> Name, email address, username, and login credentials.</li>
+          <li><strong>Company association:</strong> The organization you are linked to for training and reporting purposes.</li>
+          <li><strong>Training activity data:</strong> Course enrollments, activity logs, progress tracking, completion status, test results, certifications, and interaction data within the LMS.</li>
+          <li><strong>Technical information:</strong> Device type, IP address, browser type, and usage statistics (collected automatically to ensure platform security and functionality).</li>
+        </ul>
+      </section>
+
+      <section id="how-we-use">
+        <h2>3. How We Use Your Data</h2>
+        <p>We process your data only for legitimate purposes, including:</p>
+        <ul>
+          <li><strong>Providing services:</strong> To deliver cybersecurity training content, enable course access, and manage your LMS account.</li>
+          <li><strong>Tracking &amp; reporting:</strong> To monitor learning progress, record results, and generate reports for your company administrators for compliance and workforce development.</li>
+          <li><strong>Platform improvement:</strong> To analyze usage trends and enhance system functionality, security, and user experience.</li>
+          <li><strong>Legal &amp; compliance obligations:</strong> To meet legal requirements or respond to lawful requests from authorities.</li>
+        </ul>
+        <p><strong>We do not sell or share your personal data</strong> with third parties for marketing purposes.</p>
+      </section>
+
+      <section id="legal-basis">
+        <h2>4. Legal Basis for Processing</h2>
+        <ul>
+          <li><strong>Performance of a contract:</strong> To provide training services under the agreement with your employer.</li>
+          <li><strong>Legitimate interests:</strong> To improve and secure our LMS services.</li>
+          <li><strong>Legal obligations:</strong> To retain training records when required for compliance, regulatory, or auditing purposes.</li>
+          <li><strong>Consent:</strong> When explicitly required, such as opting into optional communications.</li>
+        </ul>
+      </section>
+
+      <section id="retention">
+        <h2>5. Data Retention</h2>
+        <p>We retain personal data for as long as your account remains active or as required to fulfill the purposes outlined in this policy. Training history may be stored beyond account deactivation when necessary for compliance, certification validation, or corporate reporting.</p>
+        <p>If you request permanent deletion of your data, we will honor it unless retention is legally required.</p>
+      </section>
+
+      <section id="sharing-security">
+        <h2>6. Data Sharing &amp; Security</h2>
+        <p>Your data may be shared with:</p>
+        <ul>
+          <li><strong>Authorized company administrators:</strong> To monitor staff training progress and compliance.</li>
+          <li><strong>Service providers:</strong> Trusted third-party vendors who help operate the LMS (e.g., hosting, analytics, IT support), bound by strict confidentiality and data processing agreements.</li>
+          <li><strong>Regulatory authorities:</strong> Where required by law.</li>
+        </ul>
+        <p>We use appropriate technical and organizational measures (such as encryption, access controls, monitoring, and regular security reviews) to safeguard your personal data against unauthorized access, loss, or misuse.</p>
+      </section>
+
+      <section id="gdpr-rights" aria-labelledby="gdpr-heading">
+        <h2 id="gdpr-heading">7. Your Rights Under GDPR</h2>
+        <ul>
+          <li><strong>Right of access</strong> – Request a copy of the personal data we hold about you.</li>
+          <li><strong>Right to rectification</strong> – Request corrections to inaccurate or incomplete information.</li>
+          <li><strong>Right to erasure (“right to be forgotten”)</strong> – You may deactivate your account at any time. This restricts access and stops further processing of your data. Training records may be retained for compliance or reporting. If you want all your data permanently deleted, contact us at <a href="mailto:privacy@example.com">privacy@example.com</a>.</li>
+          <li><strong>Right to restriction of processing</strong> – Request that we limit how your data is used under certain circumstances.</li>
+          <li><strong>Right to data portability</strong> – Request a copy of your data in a structured, commonly used, machine-readable format.</li>
+          <li><strong>Right to object</strong> – Object to processing based on legitimate interests or direct communications (if applicable).</li>
+          <li><strong>Right to lodge a complaint</strong> – You may complain to your local data protection authority if you believe your rights are being violated.</li>
+        </ul>
+      </section>
+
+      <section id="intl-transfers">
+        <h2>8. International Data Transfers</h2>
+        <p>If your data is transferred outside the European Economic Area (EEA), we ensure that appropriate safeguards are in place (such as Standard Contractual Clauses) to protect your information.</p>
+      </section>
+
+      <section id="contact">
+        <h2>9. Contact Us</h2>
+        <p>If you have questions about this policy or want to exercise your rights, please contact us at:</p>
+        <p><strong>Email:</strong> <a href="mailto:privacy@example.com">privacy@example.com</a><br/>
+        <strong>Subject line:</strong> Data Privacy Request</p>
+      </section>
+    </article>
+
+    <footer role="contentinfo">
+      © <span id="year"></span> Cyber Security Rtain. All rights reserved.
+    </footer>
+  </main>
+
+  <script>
+    // Sets current year in footer. Safe to run inline.
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

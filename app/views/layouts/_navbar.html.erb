@@ -1,9 +1,9 @@
-
-
 <!-- app/views/layouts/_navbar.html.erb -->
 <nav class="bg-blue-600 text-white shadow-lg">
   <div class="container mx-auto px-4">
     <div class="flex justify-between items-center py-4">
+      
+      <!-- Left side -->
       <div class="flex items-center space-x-4">
         <%= link_to "Cyber Security Training", root_path, class: "text-xl font-bold" %>
         
@@ -18,18 +18,17 @@
           
           <%= link_to "Courses", courses_path, class: "px-3 py-2 rounded hover:bg-blue-700" %>
         <% end %>
-        
       </div>
 
+      <!-- Right side -->
       <div class="flex items-center space-x-4">
         <% if user_signed_in? %>
           <span class="text-sm">Welcome, <%= current_user.first_name %></span>
-          <%= link_to "Profile", edit_user_registration_path, class: "px-3 py-2 rounded hover:bg-blue-700" %>
+          <%= link_to "My Profile", edit_profile_path, class: "px-3 py-2 rounded hover:bg-blue-700" %>
           <%= button_to "Logout", destroy_user_session_path, method: :delete, class: "px-3 py-2 rounded hover:bg-blue-700" %>
         <% else %>
           <%= link_to "Login", new_user_session_path, class: "px-3 py-2 rounded hover:bg-blue-700" %>
           <%= link_to "Sign Up", new_user_registration_path, class: "px-3 py-2 rounded hover:bg-blue-700" %>
-          <%= link_to "My Profile", edit_profile_path, class: "px-3 py-2 rounded hover:bg-blue-700" %>
         <% end %>
       </div>
     </div>

@@ -37,7 +37,7 @@ Rails.application.routes.draw do
   end
 
   # Staff routes
-  resource :profile, only: [:edit, :update], controller: "users/profiles"
+  resource :profile, only: [:edit, :update, :destroy], controller: "users/profiles"
 
   resources :courses, only: [:index, :show] do
     resources :training_modules, only: [:show] do
@@ -51,6 +51,9 @@ Rails.application.routes.draw do
 
     resources :assessments, only: [:show, :create]
   end
+
+  #   Static pages
+  get "privacy", to: "home#privacy"
 
   # Authentication
   devise_for :users, controllers: {
