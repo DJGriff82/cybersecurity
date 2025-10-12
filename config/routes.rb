@@ -1,9 +1,11 @@
-# config/routes.rb
 Rails.application.routes.draw do
-  # Super user routes
+  # ============================
+  # SUPER USER ROUTES
+  # ============================
   namespace :super do
     root to: 'dashboard#index'
 
+    # --- Companies ---
     resources :companies do
       member do
         patch :restore   # /super/companies/:id/restore
@@ -17,28 +19,46 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :users     # global users list for supers
+    # --- Global Users (Super Admin Management) ---
+    resources :users do
+      member do
+        patch :toggle_active   # /super/users/:id/toggle_active
+      end
+    end
+
+    # --- Categories ---
     resources :categories
+
+    # --- Courses, Training Modules, and Pages ---
     resources :courses do
       resources :training_modules do
         resources :module_pages
       end
     end
 
+    # --- Analytics ---
     get 'analytics', to: 'analytics#index'
   end
 
-  # Admin routes
+  # ============================
+  # ADMIN ROUTES
+  # ============================
   namespace :admin do
     root to: 'dashboard#index'
+
     resources :users
     resources :user_progress, only: [:index, :show]
     resources :reports, only: [:index]
   end
 
-  # Staff routes
+  # ============================
+  # STAFF ROUTES
+  # ============================
   resource :profile, only: [:edit, :update, :destroy], controller: "users/profiles"
 
+  # ============================
+  # COURSES (Staff + General Access)
+  # ============================
   resources :courses, only: [:index, :show] do
     resources :training_modules, only: [:show] do
       resources :module_pages, only: [:show], controller: "course_pages"
@@ -52,15 +72,21 @@ Rails.application.routes.draw do
     resources :assessments, only: [:show, :create]
   end
 
-  #   Static pages
+  # ============================
+  # STATIC PAGES
+  # ============================
   get "privacy", to: "home#privacy"
 
-  # Authentication
+  # ============================
+  # AUTHENTICATION (Devise)
+  # ============================
   devise_for :users, controllers: {
     sessions: 'users/sessions',
     passwords: 'users/passwords'
   }
 
-  # Root
+  # ============================
+  # ROOT PATH
+  # ============================
   root 'home#index'
 end

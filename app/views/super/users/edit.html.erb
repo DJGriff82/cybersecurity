@@ -1,2 +1,36 @@
-<h1>Super::Users#edit</h1>
-<p>Find me in app/views/super/users/edit.html.erb</p>
+<h1>Edit User</h1>
+
+<%= form_with model: [:super, @user], local: true do |form| %>
+  <p>
+    <%= form.label :first_name %><br>
+    <%= form.text_field :first_name %>
+  </p>
+
+  <p>
+    <%= form.label :last_name %><br>
+    <%= form.text_field :last_name %>
+  </p>
+
+  <p>
+    <%= form.label :email %><br>
+    <%= form.email_field :email %>
+  </p>
+
+  <p>
+    <%= form.label :role %><br>
+    <%= form.select :role, User.roles.keys.map { |r| [r.humanize, r] } %>
+  </p>
+
+  <p>
+    <%= form.label :company_id, "Company" %><br>
+    <%= form.collection_select :company_id, Company.all, :id, :name, include_blank: true %>
+  </p>
+
+  <p>
+    <%= form.submit "Save Changes" %>
+  </p>
+<% end %>
+
+<hr>
+
+<%= link_to "Back to Users", super_users_path %>
