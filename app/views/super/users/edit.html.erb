@@ -1,5 +1,26 @@
 <h1>Edit User</h1>
 
+<%# Show a simple status indicator %>
+<p>
+  <strong>Status:</strong>
+  <%= @user.deleted_at.present? ? "Disabled" : "Active" %>
+</p>
+
+<%# Toggle button: sends PATCH instead of GET (always works without JS) %>
+<% if @user.deleted_at.present? %>
+  <%= button_to "Enable User",
+                toggle_active_super_user_path(@user),
+                method: :patch,
+                data: { confirm: "Are you sure you want to re-enable this user?" } %>
+<% else %>
+  <%= button_to "Disable User",
+                toggle_active_super_user_path(@user),
+                method: :patch,
+                data: { confirm: "Are you sure you want to disable this user?" } %>
+<% end %>
+
+<hr>
+
 <%= form_with model: [:super, @user], local: true do |form| %>
   <p>
     <%= form.label :first_name %><br>
