@@ -38,15 +38,22 @@ module Super
 
     # ✅ Disable or enable a user (soft delete)
     def toggle_active
-      if @user.deleted_at.present?
-        @user.update(deleted_at: nil)
-        msg = 'User re-enabled successfully.'
-      else
-        @user.update(deleted_at: Time.current)
-        msg = 'User disabled successfully.'
-      end
-      redirect_to super_users_path, notice: msg
-    end
+  if @user.deleted_at.present?
+    @user.update(deleted_at: nil)
+    msg = "User re-enabled successfully."
+  else
+    @user.update(deleted_at: Time.current)
+    msg = "User disabled successfully."
+  end
+
+  # ✅ If we came from a company context, redirect back there
+  if @user.company_id.present?
+    redirect_to super_company_users_path(@user.company_id), notice: msg
+  else
+    redirect_to super_users_path, notice: msg
+  end
+end
+
 
     private
 

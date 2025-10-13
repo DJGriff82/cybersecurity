@@ -13,6 +13,10 @@ Rails.application.routes.draw do
 
       # Nested company users management
       resources :users, controller: "company_users" do
+        collection do
+          post :import   # ✅ /super/companies/:company_id/users/import (CSV upload)
+        end
+
         member do
           patch :restore   # /super/companies/:company_id/users/:id/restore
         end

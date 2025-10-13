@@ -1,8 +1,13 @@
+require 'csv'
+
 module Super
   class CompanyUsersController < ApplicationController
     before_action :set_company
     before_action :set_user, only: [:edit, :update, :destroy, :restore]
 
+    # =====================
+    # INDEX (List Users)
+    # =====================
     def index
       case params[:filter]
       when "archived"
@@ -14,6 +19,9 @@ module Super
       end
     end
 
+    # =====================
+    # NEW / CREATE
+    # =====================
     def new
       @user = @company.users.build
     end
@@ -27,6 +35,9 @@ module Super
       end
     end
 
+    # =====================
+    # EDIT / UPDATE
+    # =====================
     def edit; end
 
     def update
@@ -37,6 +48,9 @@ module Super
       end
     end
 
+    # =====================
+    # ARCHIVE / RESTORE
+    # =====================
     def destroy
       @user.soft_delete
       redirect_to super_company_users_path(@company), notice: "User archived."
@@ -47,6 +61,48 @@ module Super
       redirect_to super_company_users_path(@company), notice: "User restored."
     end
 
+    # =====================
+    # IMPORT USERS (CSV)
+    # =====================
+    def import
+      if params[:file].blank?
+        redirect_to super_company_users_path(@company), alert: "Please upload a CSV file."
+        return
+      end
+
+      imported = 0
+      failed = []
+
+      CSV.foreach(params[:file].path, headers: true) do |row|
+        data = row.to_h.symbolize_keys
+        user = @company.users.new(
+          first_name: data[:first_name],
+          last_name:  data[:last_name],
+          email:      data[:email],
+          role:       data[:role] || "staff_user",
+          password:   SecureRandom.hex(8)
+        )
+
+        if user.save
+          imported += 1
+          # Optional: send password reset instructions
+          # user.send_reset_password_instructions
+        else
+          failed << "#{data[:email]} (#{user.errors.full_messages.join(', ')})"
+        end
+      end
+
+      notice = "#{imported} user(s) imported successfully."
+      notice += " Some failed: #{failed.join('; ')}" if failed.any?
+
+      redirect_to super_company_users_path(@company), notice: notice
+    rescue => e
+      redirect_to super_company_users_path(@company), alert: "Import failed: #{e.message}"
+    end
+
+    # =====================
+    # PRIVATE HELPERS
+    # =====================
     private
 
     def set_company
