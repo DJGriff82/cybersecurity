@@ -1,0 +1,84 @@
+
+
+@font-face {
+  font-family: 'Inter';
+  src: url('/assets/inter.ttf') format('truetype');
+
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  font-family: 'MyFont';
+}
+
+.left{
+    text-align: left;
+}
+.right form button {
+  background: #ff6600;
+  border: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+}
+
+.right form {
+  display: inline;  /* treat the form as inline */
+  margin: 0;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between; /* space between logo and links */
+  align-items: center;            /* vertical centering */
+  background: #1b325e;
+  padding: 0.5rem 1rem;
+}
+
+.navbar .logo {
+  color: white;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.nav-links {
+  display: flex;   /* put links & button on one line */
+  gap: 1rem;       /* spacing between items */
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+}
+
+.nav-links a:hover {
+  text-decoration: underline;
+}
+
+.login-btn {
+  padding: 0.4rem 0.8rem;
+  border: none;
+  background: #12323b;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.navbar a {
+  display: inline-block;   /* so padding works properly */
+  padding: 0.4rem 0.8rem;
+  background: #1b325e;
+  color: white;
+  text-decoration: none;
+  border-radius: 2px;
+  transition: background 0.2s ease;
+}
+
+.navbar a:hover {
+  background: #8ca0be;
+}
+
+.navbar a:active {
+  background: #1a2842;
+}

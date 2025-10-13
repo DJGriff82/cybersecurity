@@ -1,0 +1,30 @@
+
+
+/* Default link color */
+a {
+  color: rgb(0, 204, 255);
+  text-decoration: underline; /* or none */
+}
+
+/* Visited link */
+a:visited {
+  color: rgb(144, 172, 189);
+}
+
+/* When hovering with mouse */
+a:hover {
+  color: rgb(43, 56, 71);
+  text-decoration: underline;
+}
+
+/* While clicking (active state) */
+a:active {
+  color: rgb(134, 166, 207);
+}
+
+.footer {
+  background-color: #f8f9fa; /* Light gray background */
+  padding: 20px 0; /* Vertical padding */
+  text-align: center; /* Centered text */
+  border-top: 1px solid #e7e7e7; /* Top border */
+}

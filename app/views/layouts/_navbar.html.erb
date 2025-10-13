@@ -1,34 +1,40 @@
-<!-- app/views/layouts/_navbar.html.erb -->
-<nav class="bg-blue-600 text-white shadow-lg">
-  <div class="container mx-auto px-4">
-    <div class="flex justify-between items-center py-4">
+<head>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+
+  <%= stylesheet_link_tag "navbar.css", "data-turbo-track": "reload" %>
+  
+</head>
+<nav >
+  <div >
+    <div class="navbar"> 
       
       <!-- Left side -->
-      <div class="flex items-center space-x-4">
-        <%= link_to "Cyber Security Training", root_path, class: "text-xl font-bold" %>
+      <div class="left">  
+        <%= link_to "Cyber Security Training", root_path%>
         
         <% if user_signed_in? %>
           <% if current_user.super_user? %>
-            <%= link_to "Super Admin", super_root_path, class: "px-3 py-2 rounded hover:bg-blue-700" %>
+            <%= link_to "Super Admin", super_root_path %>
           <% end %>
           
           <% if current_user.company_admin? || current_user.super_user? %>
-            <%= link_to "Admin", admin_root_path, class: "px-3 py-2 rounded hover:bg-blue-700" %>
+            <%= link_to "Admin", admin_root_path%>
           <% end %>
           
-          <%= link_to "Courses", courses_path, class: "px-3 py-2 rounded hover:bg-blue-700" %>
+          <%= link_to "Courses", courses_path %>
         <% end %>
       </div>
 
       <!-- Right side -->
-      <div class="flex items-center space-x-4">
+      <div class="right">
         <% if user_signed_in? %>
-          <span class="text-sm">Welcome, <%= current_user.first_name %></span>
-          <%= link_to "My Profile", edit_profile_path, class: "px-3 py-2 rounded hover:bg-blue-700" %>
-          <%= button_to "Logout", destroy_user_session_path, method: :delete, class: "px-3 py-2 rounded hover:bg-blue-700" %>
+          <span>Welcome, <%= current_user.first_name %></span>
+          <%= link_to "My Profile", edit_profile_path %>
+          <%= button_to "Logout", destroy_user_session_path, method: :delete %>
         <% else %>
-          <%= link_to "Login", new_user_session_path, class: "px-3 py-2 rounded hover:bg-blue-700" %>
-          <%= link_to "Sign Up", new_user_registration_path, class: "px-3 py-2 rounded hover:bg-blue-700" %>
+          <%= link_to "Login", new_user_session_path %>
+          <%= link_to "Sign Up", new_user_registration_path %>
         <% end %>
       </div>
     </div>

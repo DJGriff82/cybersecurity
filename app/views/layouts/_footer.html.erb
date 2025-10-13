@@ -1,11 +1,16 @@
+<head>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
 
-<nav class="bg-blue-600 text-white shadow-lg">
-  <div class="container mx-auto px-4">
-    <div class="flex justify-between items-center py-4">
-      
-     
-      <div class="flex items-center space-x-4">
-        <%= link_to "Privacy Policy", privacy_path, class: "px-3 py-2 rounded hover:bg-blue-700" %>
+  <%= stylesheet_link_tag "site.css", "data-turbo-track": "reload" %>
+  
+</head>
+<nav class="footer">
+  <div >
+    <div >
+
+      <div>
+        <%= link_to "Privacy Policy", privacy_path %>
       </div>
     </div>
   </div>
