@@ -1,52 +1,69 @@
-<%= form_with(model: [:super, @company]) do |f| %>
-  <% if @company.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@company.errors.count, "error") %> prohibited this company from being saved:</h2>
-      <ul>
+<%= form_with(model: [:super, @company], local: true) do |f| %>
+<% if @company.errors.any? %>
+<div id="error_explanation">
+    <h2><%= pluralize(@company.errors.count, "error") %> prohibited this company from being saved:</h2>
+    <ul>
         <% @company.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
+        <li><%= message %></li>
         <% end %>
-      </ul>
-    </div>
-  <% end %>
+    </ul>
+</div>
+<% end %>
 
-  <div>
-    <%= f.label :name %><br>
+<div>
+    <%= f.label :name, "Company Name" %><br>
     <%= f.text_field :name %>
-  </div>
+</div>
 
-  <div>
-    <%= f.label :subdomain %><br>
+<div>
+    <%= f.label :subdomain, "Subdomain" %><br>
     <%= f.text_field :subdomain %>
-  </div>
+</div>
 
-  <div>
-    <%= f.label :contact_email %><br>
+<div>
+    <%= f.label :contact_email, "Contact Email" %><br>
     <%= f.email_field :contact_email %>
-  </div>
+</div>
 
-  <div>
-    <%= f.label :subscription_status %><br>
+<div>
+    <%= f.label :subscription_status, "Subscription Status" %><br>
     <%= f.text_field :subscription_status %>
-  </div>
+</div>
 
-  <div>
-    <%= f.label :max_users %><br>
+<div>
+    <%= f.label :max_users, "Max Users" %><br>
     <%= f.number_field :max_users %>
-  </div>
+</div>
 
-  <div>
-    <%= f.label :description %><br>
+<div>
+    <%= f.label :description, "Description" %><br>
     <%= f.text_area :description %>
-  </div>
+</div>
 
-  <!-- ✅ Add subscription expiry field here -->
-  <div>
+<div>
     <%= f.label :subscription_expires_at, "Subscription Expiry Date" %><br>
     <%= f.date_field :subscription_expires_at %>
-  </div>
+</div>
 
-  <div>
-    <%= f.submit %>
-  </div>
+<hr>
+
+<h3>Assign Courses</h3>
+<% if Course.any? %>
+<% Course.all.each do |course| %>
+<div>
+    <%= check_box_tag "company[course_ids][]", course.id, @company.courses.include?(course), id: "course_#{course.id}" %>
+    <%= label_tag "course_#{course.id}", course.title %>
+</div>
+<% end %>
+<!-- ✅ Ensures that unchecking all courses removes them -->
+<%= hidden_field_tag "company[course_ids][]", "" %>
+<% else %>
+<p>No courses available to assign.</p>
+<% end %>
+
+<hr>
+
+<div>
+    <%= f.submit "Save Company" %>
+</div>
 <% end %>

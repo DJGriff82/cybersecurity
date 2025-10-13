@@ -1,87 +1,103 @@
 <h1>Edit Company</h1>
 
 <%= form_with(model: [:super, @company], local: true) do |f| %>
-  <% if @company.errors.any? %>
-    <div class="errors">
-      <h2><%= pluralize(@company.errors.count, "error") %> prevented saving:</h2>
-      <ul>
+<% if @company.errors.any? %>
+<div class="errors">
+    <h2><%= pluralize(@company.errors.count, "error") %> prevented saving:</h2>
+    <ul>
         <% @company.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
+        <li><%= msg %></li>
         <% end %>
-      </ul>
-    </div>
-  <% end %>
+    </ul>
+</div>
+<% end %>
 
-  <div>
+<div>
     <%= f.label :name %>
     <%= f.text_field :name %>
-  </div>
+</div>
 
-  <div>
+<div>
     <%= f.label :subdomain %>
     <%= f.text_field :subdomain %>
-  </div>
+</div>
 
-  <div>
+<div>
     <%= f.label :contact_email %>
     <%= f.email_field :contact_email %>
-  </div>
+</div>
 
-  <div>
+<div>
     <%= f.label :subscription_status %>
     <%= f.text_field :subscription_status %>
-  </div>
+</div>
 
-  <div>
+<div>
     <%= f.label :max_users %>
     <%= f.number_field :max_users %>
-  </div>
+</div>
 
-  <div>
+<div>
     <%= f.label :industry %>
     <%= f.text_field :industry %>
-  </div>
+</div>
 
-  <div>
+<div>
     <%= f.label :description %>
     <%= f.text_area :description %>
-  </div>
+</div>
 
-  <!-- ✅ New subscription expiry field -->
-  <div>
+<!-- ✅ Subscription expiry -->
+<div>
     <%= f.label :subscription_expires_at, "Subscription Expiry Date" %>
     <%= f.date_field :subscription_expires_at %>
-  </div>
+</div>
 
-  <div>
+<hr>
+
+<!-- ✅ Course assignment section -->
+<h3>Assign Courses</h3>
+<% if @all_courses.any? %>
+<% @all_courses.each do |course| %>
+<div>
+    <%= check_box_tag "company[course_ids][]", course.id, @company.courses.include?(course), id: "course_#{course.id}" %>
+    <%= label_tag "course_#{course.id}", course.title %>
+</div>
+<% end %>
+<%= hidden_field_tag "company[course_ids][]", "" %>
+<% else %>
+<p>No courses available to assign.</p>
+<% end %>
+
+<div>
     <%= f.submit "Update Company" %>
-  </div>
+</div>
 <% end %>
 
 <hr>
 
 <h2>Users in this Company</h2>
 <table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Email</th>
-      <th>Role</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @users.each do |user| %>
-      <tr>
-        <td><%= user.full_name %></td>
-        <td><%= user.email %></td>
-        <td><%= user.role.humanize %></td>
-        <td>
-          <%= link_to "Edit User", edit_super_user_path(user) %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% @users.each do |user| %>
+        <tr>
+            <td><%= user.full_name %></td>
+            <td><%= user.email %></td>
+            <td><%= user.role.humanize %></td>
+            <td>
+                <%= link_to "Edit User", edit_super_user_path(user) %>
+            </td>
+        </tr>
+        <% end %>
+    </tbody>
 </table>
 
 <%= link_to "Back to Companies", super_companies_path %>

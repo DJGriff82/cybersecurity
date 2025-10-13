@@ -1,42 +1,42 @@
 <%= form_with(model: [:super, @company, user], local: true) do |f| %>
-  <% if user.errors.any? %>
-    <div class="errors">
-      <h2><%= pluralize(user.errors.count, "error") %> prevented saving:</h2>
-      <ul>
+<% if user.errors.any? %>
+<div class="errors">
+    <h2><%= pluralize(user.errors.count, "error") %> prevented saving:</h2>
+    <ul>
         <% user.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
+        <li><%= msg %></li>
         <% end %>
-      </ul>
-    </div>
-  <% end %>
+    </ul>
+</div>
+<% end %>
 
-  <div>
+<div>
     <%= f.label :first_name %>
     <%= f.text_field :first_name %>
-  </div>
+</div>
 
-  <div>
+<div>
     <%= f.label :last_name %>
     <%= f.text_field :last_name %>
-  </div>
+</div>
 
-  <div>
+<div>
     <%= f.label :email %>
     <%= f.email_field :email %>
-  </div>
+</div>
 
-  <div>
+<div>
     <%= f.label :password %>
     <%= f.password_field :password %>
     <small>(leave blank if not changing)</small>
-  </div>
+</div>
 
-  <div>
+<div>
     <%= f.label :role %>
     <%= f.select :role, User.roles.keys.map { |r| [r.humanize, r] } %>
-  </div>
+</div>
 
-  <div>
+<div>
     <%= f.submit %>
-  </div>
+</div>
 <% end %>

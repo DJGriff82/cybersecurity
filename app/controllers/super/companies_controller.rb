@@ -3,7 +3,6 @@ class Super::CompaniesController < ApplicationController
 
   def index
     @filter = params[:filter]
-
     @companies = Company.all
 
     case @filter
@@ -18,14 +17,17 @@ class Super::CompaniesController < ApplicationController
 
   def show
     @users = @company.users
+    @assigned_courses = @company.courses   # ✅ show assigned courses
   end
 
   def new
     @company = Company.new
+    @all_courses = Course.all              # ✅ needed for checkboxes
   end
 
   def edit
     @users = @company.users
+    @all_courses = Course.all              # ✅ needed for checkboxes
   end
 
   def create
@@ -33,6 +35,7 @@ class Super::CompaniesController < ApplicationController
     if @company.save
       redirect_to [:super, @company], notice: "Company was successfully created."
     else
+      @all_courses = Course.all            # ✅ reload courses if validation fails
       render :new, status: :unprocessable_entity
     end
   end
@@ -41,6 +44,7 @@ class Super::CompaniesController < ApplicationController
     if @company.update(company_params)
       redirect_to [:super, @company], notice: "Company was successfully updated."
     else
+      @all_courses = Course.all
       render :edit, status: :unprocessable_entity
     end
   end
@@ -61,6 +65,7 @@ class Super::CompaniesController < ApplicationController
     @company = Company.find(params[:id])
   end
 
+  # ✅ Allow course assignment
   def company_params
     params.require(:company).permit(
       :name,
@@ -70,7 +75,8 @@ class Super::CompaniesController < ApplicationController
       :subscription_expires_at,
       :max_users,
       :industry,
-      :description
+      :description,
+      course_ids: []   # <== this line enables course assignment
     )
   end
 end

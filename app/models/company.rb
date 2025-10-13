@@ -1,18 +1,21 @@
 class Company < ApplicationRecord
+  # === Associations ===
   has_many :users, dependent: :nullify
-  has_many :courses, dependent: :destroy
+  has_many :company_courses, dependent: :destroy
+  has_many :courses, through: :company_courses
   has_many :security_tests, dependent: :destroy
 
+  # === Validations ===
   validates :name, :subdomain, :contact_email, presence: true
   validates :subdomain, uniqueness: true, format: { with: /\A[a-z0-9]+\z/ }
 
   before_validation :downcase_subdomain
 
-  # Scopes
+  # === Scopes ===
   scope :active, -> { where(deleted_at: nil) }
   scope :archived, -> { where.not(deleted_at: nil) }
 
-  # --- New subscription helpers ---
+  # === Subscription helpers ===
   def subscription_active?
     subscription_expires_at.nil? || subscription_expires_at.future?
   end
@@ -22,7 +25,7 @@ class Company < ApplicationRecord
     (subscription_expires_at.to_date - Date.today).to_i
   end
 
-  # --- User helpers ---
+  # === User helpers ===
   def active_users
     users.where(deleted_at: nil)
   end
@@ -35,7 +38,7 @@ class Company < ApplicationRecord
     max_users.present? && active_user_count >= max_users
   end
 
-  # --- Soft delete ---
+  # === Soft delete ===
   def soft_delete
     update(deleted_at: Time.current)
   end

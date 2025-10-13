@@ -1,9 +1,11 @@
-# app/models/course.rb
 class Course < ApplicationRecord
   # Associations
   belongs_to :creator, class_name: "User", foreign_key: "created_by"
   belongs_to :category, optional: true
-  belongs_to :company, optional: true
+
+  # 🔄 Shared course access for multiple companies
+  has_many :company_courses, dependent: :destroy
+  has_many :companies, through: :company_courses
 
   has_many :training_modules, -> { order(:position) }, dependent: :destroy
   has_many :assessments, dependent: :destroy
