@@ -8,6 +8,7 @@ gem "importmap-rails"
 gem "turbo-rails"
 gem "stimulus-rails"
 gem "jbuilder"
+gem 'csv', require: false
 
 #custom gems
 gem 'devise', '~> 4.9', '>= 4.9.4'

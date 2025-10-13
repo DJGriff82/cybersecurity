@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_09_22_212350) do
+ActiveRecord::Schema[8.0].define(version: 2025_10_12_200134) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -68,10 +68,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_22_212350) do
     t.integer "max_users"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.text "description"
     t.string "industry"
     t.datetime "deleted_at"
     t.datetime "subscription_expires_at"
+    t.text "description"
     t.index ["deleted_at"], name: "index_companies_on_deleted_at"
   end
 
@@ -108,12 +108,12 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_22_212350) do
 
   create_table "training_modules", force: :cascade do |t|
     t.string "title"
+    t.text "content"
     t.string "video_url"
     t.integer "course_id"
+    t.integer "position"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.text "description"
-    t.integer "position"
   end
 
   create_table "user_progresses", force: :cascade do |t|
@@ -135,11 +135,11 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_22_212350) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "first_name"
-    t.string "last_name"
     t.integer "role", default: 0
     t.integer "company_id"
     t.datetime "deleted_at"
+    t.string "first_name"
+    t.string "last_name"
     t.integer "sign_in_count", default: 0, null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
