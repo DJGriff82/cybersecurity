@@ -2,23 +2,23 @@
 <p>Comprehensive cybersecurity training for your organization</p>
 
 <% if user_signed_in? %>
-  <p>Welcome back, <%= current_user.first_name %>!</p>
-  <p>You are logged in as <%= current_user.role.to_s.titleize %>.</p>
+<p>Welcome back, <%= current_user.first_name %>!</p>
+<p>You are logged in as <%= current_user.role.to_s.titleize %>.</p>
 
-  <% if current_user.super_user? %>
-    <%= link_to 'Super Admin Dashboard', super_root_path %><br>
-  <% end %>
-
-  <% if current_user.company_admin? || current_user.super_user? %>
-    <%= link_to 'Admin Dashboard', admin_root_path %><br>
-  <% end %>
-
-  <%= link_to 'View Courses', courses_path %><br>
-  <%= link_to 'Logout', destroy_user_session_path, method: :delete %>
-<% else %>
-  <p>Welcome to our Cyber Security Training Platform</p>
-  <p>Please sign in to access your training materials.</p>
-
-  <%= link_to 'Sign In', new_user_session_path %><br>
-  <%= link_to 'Sign Up', new_user_registration_path %>
+<% if current_user.super_user? %>
+<%= link_to 'Super Admin Dashboard', super_root_path %><br>
 <% end %>
+
+<% if current_user.company_admin? || current_user.super_user? %>
+<%= link_to 'Admin Dashboard', admin_root_path %><br>
+<% end %>
+
+<%= link_to 'View Courses', courses_path %><br>
+<%= link_to 'Logout', destroy_user_session_path, method: :delete %>
+<% else %>
+<p>Welcome to our Cyber Security Training Platform</p>
+<p>Please sign in to access your training materials.</p>
+
+<!-- <%= link_to 'Sign In', new_user_session_path %><br>
+  <%= link_to 'Sign Up', new_user_registration_path %> 
+<% end %>-->

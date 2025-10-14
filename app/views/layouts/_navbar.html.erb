@@ -1,42 +1,43 @@
 <head>
-  <%= csrf_meta_tags %>
-  <%= csp_meta_tag %>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
 
-  <%= stylesheet_link_tag "navbar.css", "data-turbo-track": "reload" %>
-  
+    <%= stylesheet_link_tag "navbar.css", "data-turbo-track": "reload" %>
+
 </head>
-<nav >
-  <div >
-    <div class="navbar"> 
-      
-      <!-- Left side -->
-      <div class="left">  
-        <%= link_to "Cyber Security Training", root_path%>
-        
-        <% if user_signed_in? %>
-          <% if current_user.super_user? %>
-            <%= link_to "Super Admin", super_root_path %>
-          <% end %>
-          
-          <% if current_user.company_admin? || current_user.super_user? %>
-            <%= link_to "Admin", admin_root_path%>
-          <% end %>
-          
-          <%= link_to "Courses", courses_path %>
-        <% end %>
-      </div>
+<nav>
+    <div>
+        <div class="navbar">
 
-      <!-- Right side -->
-      <div class="right">
-        <% if user_signed_in? %>
-          <span>Welcome, <%= current_user.first_name %></span>
-          <%= link_to "My Profile", edit_profile_path %>
-          <%= button_to "Logout", destroy_user_session_path, method: :delete %>
-        <% else %>
-          <%= link_to "Login", new_user_session_path %>
-          <%= link_to "Sign Up", new_user_registration_path %>
-        <% end %>
-      </div>
+            <!-- Left side -->
+            <div class="left">
+                <%= link_to "Cyber Security Training", root_path%>
+
+                <% if user_signed_in? %>
+                <% if current_user.super_user? %>
+                <%= link_to "Super Admin", super_root_path %>
+                <% end %>
+
+                <% if current_user.company_admin? || current_user.super_user? %>
+                <%= link_to "Admin", admin_root_path%>
+                <% end %>
+
+                <%= link_to "Courses", courses_path %>
+                <% end %>
+                <%= link_to "Contact Us", contact_path %>
+            </div>
+
+            <!-- Right side -->
+            <div class="right">
+                <% if user_signed_in? %>
+                <span>Welcome, <%= current_user.first_name %></span>
+                <%= link_to "My Profile", edit_profile_path %>
+                <%= button_to "Logout", destroy_user_session_path, method: :delete %>
+                <% else %>
+                <%= link_to "Login", new_user_session_path %>
+                <%= link_to "Sign Up", new_user_registration_path %>
+                <% end %>
+            </div>
+        </div>
     </div>
-  </div>
 </nav>

@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   namespace :super do
     root to: 'dashboard#index'
 
+
+    resources :contacts, only: [:index, :show, :destroy]
     # --- Companies ---
     resources :companies do
       member do
@@ -88,6 +90,15 @@ Rails.application.routes.draw do
     sessions: 'users/sessions',
     passwords: 'users/passwords'
   }
+
+  # ============================
+  # Contact
+  # ============================
+  
+  resources :contacts, only: [:new, :create]
+get "contact", to: "contacts#new", as: "contact"
+
+  post "contact", to: "contacts#create"
 
   # ============================
   # ROOT PATH

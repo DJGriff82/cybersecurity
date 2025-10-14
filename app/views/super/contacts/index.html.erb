@@ -1,0 +1,27 @@
+<h1>Contact Messages</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Message</th>
+            <th>Received</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% @contacts.each do |contact| %>
+        <tr>
+            <td><%= contact.name %></td>
+            <td><%= contact.email %></td>
+            <td><%= truncate(contact.message, length: 60) %></td>
+            <td><%= contact.created_at.strftime("%Y-%m-%d %H:%M") %></td>
+            <td>
+                <%= link_to "View", super_contact_path(contact) %> |
+                <%= link_to "Delete", super_contact_path(contact), method: :delete, data: { confirm: "Are you sure?" } %>
+            </td>
+        </tr>
+        <% end %>
+    </tbody>
+</table>
