@@ -1,21 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cyber Security Training</title>
-  <%= csrf_meta_tags %>
-  <%= csp_meta_tag %>
-  <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-  <%= javascript_importmap_tags %>
-</head>
-<body class="bg-gray-100">
-  <%= render 'layouts/navbar' %>
 
-  <main class="container mx-auto px-4 py-8">
-    <%= render 'shared/flash' %>
-    <%= yield %>
-    <%= render 'layouts/footer' %>
-  </main>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyber Security Training</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+
+
+    <%= javascript_importmap_tags %>
+</head>
+
+<body class="bg-gray-100">
+    <%= render 'layouts/navbar' %>
+
+    <main class="container mx-auto px-4 py-8">
+        <%= render 'shared/flash' %>
+        <%= yield %>
+        <%= render 'layouts/footer' %>
+    </main>
 </body>
+
 </html>

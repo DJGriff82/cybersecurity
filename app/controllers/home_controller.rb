@@ -1,6 +1,6 @@
 # app/controllers/home_controller.rb
 class HomeController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:index]
+  skip_before_action :authenticate_user!, only: [:index, :privacy]
   
   def index
     # Redirect to appropriate dashboard if user is already signed in

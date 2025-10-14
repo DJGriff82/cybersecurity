@@ -12,7 +12,15 @@
             <!-- Left side -->
             <div class="left">
                 <%= link_to "Cyber Security Training", root_path%>
-
+                <div class="dropdown">
+                    <%= link_to "Courses ▾", "#", class: "dropbtn" %>
+                    <div class="dropdown-content">
+                        <%= link_to "Phishing Attacks", phishing_path %>
+                        <%= link_to "Social Engineering", social_engineering_path %>
+                        <%= link_to "Password Security", password_security_path %>
+                        <%= link_to "Malware Awareness", malware_awareness_path %>
+                    </div>
+                </div>
                 <% if user_signed_in? %>
                 <% if current_user.super_user? %>
                 <%= link_to "Super Admin", super_root_path %>

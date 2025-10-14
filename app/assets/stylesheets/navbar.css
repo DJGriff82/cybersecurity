@@ -1,19 +1,17 @@
-
-
 @font-face {
-  font-family: 'Inter';
-  src: url('/assets/inter.ttf') format('truetype');
+  font-family: "Inter";
+  src: url("/assets/inter.ttf") format("truetype");
 
   font-weight: normal;
   font-style: normal;
 }
 
 body {
-  font-family: 'MyFont';
+  font-family: "MyFont";
 }
 
-.left{
-    text-align: left;
+.left {
+  text-align: left;
 }
 .right form button {
   background: #ff6600;
@@ -25,14 +23,14 @@ body {
 }
 
 .right form {
-  display: inline;  /* treat the form as inline */
+  display: inline; /* treat the form as inline */
   margin: 0;
 }
 
 .navbar {
   display: flex;
   justify-content: space-between; /* space between logo and links */
-  align-items: center;            /* vertical centering */
+  align-items: center; /* vertical centering */
   background: #1b325e;
   padding: 0.5rem 1rem;
 }
@@ -44,8 +42,8 @@ body {
 }
 
 .nav-links {
-  display: flex;   /* put links & button on one line */
-  gap: 1rem;       /* spacing between items */
+  display: flex; /* put links & button on one line */
+  gap: 1rem; /* spacing between items */
 }
 
 .nav-links a {
@@ -66,7 +64,7 @@ body {
   cursor: pointer;
 }
 .navbar a {
-  display: inline-block;   /* so padding works properly */
+  display: inline-block; /* so padding works properly */
   padding: 0.4rem 0.8rem;
   background: #1b325e;
   color: white;
@@ -81,4 +79,52 @@ body {
 
 .navbar a:active {
   background: #1a2842;
+}
+/* Dropdown container */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown button (main menu item) */
+.dropbtn {
+  color: white;
+  text-decoration: none;
+  padding: 10px 15px;
+  display: inline-block;
+}
+
+/* Dropdown content (hidden by default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #222;
+  min-width: 200px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  border-radius: 4px;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: #fff;
+  padding: 10px 15px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Hover styles */
+.dropdown-content a:hover {
+  background-color: #444;
+}
+
+/* Show the dropdown on hover */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* Optional: small down-arrow indicator */
+.dropbtn::after {
+  content: " ▼";
+  font-size: 0.6em;
 }

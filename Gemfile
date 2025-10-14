@@ -50,3 +50,5 @@ gem "simple_form", "~> 5.3"
 
 gem "rspec-rails", "~> 8.0", groups: [:development, :test]
 gem "factory_bot_rails", "~> 6.5", groups: [:development, :test]
+
+gem "cssbundling-rails", "~> 1.4"

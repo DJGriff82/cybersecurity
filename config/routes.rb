@@ -100,6 +100,13 @@ get "contact", to: "contacts#new", as: "contact"
 
   post "contact", to: "contacts#create"
 
+
+# Static pages
+ get "phishing", to: "pages#phishing", as: :phishing
+  get "social_engineering", to: "pages#social_engineering", as: :social_engineering
+  get "password_security", to: "pages#password_security", as: :password_security
+  get "malware_awareness", to: "pages#malware_awareness", as: :malware_awareness
+
   # ============================
   # ROOT PATH
   # ============================
