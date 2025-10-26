@@ -3,7 +3,7 @@ class Company < ApplicationRecord
   has_many :users, dependent: :nullify
   has_many :company_courses, dependent: :destroy
   has_many :courses, through: :company_courses
-  has_many :security_tests, dependent: :destroy
+  
 
   # === Validations ===
   validates :name, :subdomain, :contact_email, presence: true
