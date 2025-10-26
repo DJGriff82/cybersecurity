@@ -7,6 +7,14 @@ default: &default
   username: djg
   password: "Wyld4n20!3"
 
+development:
+  <<: *default
+  database: cybersecurity_development
+
+test:
+  <<: *default
+  database: cybersecurity_test
+
 production:
   primary:
     <<: *default
