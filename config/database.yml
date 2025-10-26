@@ -1,36 +1,32 @@
-
 default: &default
   adapter: postgresql
   encoding: unicode
-
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-
-
-development:
-  <<: *default
-  database: cybersecurity_development
-
-
-test:
-  <<: *default
-  database: cybersecurity_test
-
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS", 5) %>
+  host: 127.0.0.1
+  port: 5432
+  username: djg
+  password: "Wyld4n20!3"
 
 production:
-  primary: &primary_production
+  primary:
     <<: *default
     database: cybersecurity_production
-    username: cybersecurity
-    password: <%= ENV["CYBERSECURITY_DATABASE_PASSWORD"] %>
-  cache:
-    <<: *primary_production
-    database: cybersecurity_production_cache
-    migrations_paths: db/cache_migrate
+    schema_search_path: public
+
+  # Solid Queue uses its own schema
   queue:
-    <<: *primary_production
-    database: cybersecurity_production_queue
-    migrations_paths: db/queue_migrate
+    <<: *default
+    database: cybersecurity_production
+    schema_search_path: solid_queue,public
+
+  # Solid Cable uses its own schema
   cable:
-    <<: *primary_production
-    database: cybersecurity_production_cable
-    migrations_paths: db/cable_migrate
+    <<: *default
+    database: cybersecurity_production
+    schema_search_path: solid_cable,public
+
+  # Solid Cache uses its own schema
+  cache:
+    <<: *default
+    database: cybersecurity_production
+    schema_search_path: solid_cache,public
