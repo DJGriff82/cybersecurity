@@ -11,8 +11,12 @@ class Course < ApplicationRecord
 
   validates :title, :description, :duration, :difficulty, presence: true
 
-  # SIMPLE ENUM THAT WORKS:
-  enum difficulty: [:beginner, :intermediate, :advanced]
+  # CORRECT ENUM SYNTAX FOR RAILS 8:
+  enum :difficulty, {
+    beginner: "beginner",
+    intermediate: "intermediate",
+    advanced: "advanced"
+  }, default: "beginner"
 
   scope :active, -> { where(is_active: true) }
   scope :by_category, ->(category_id) { where(category_id: category_id) }
