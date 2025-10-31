@@ -11,12 +11,8 @@ class Course < ApplicationRecord
 
   validates :title, :description, :duration, :difficulty, presence: true
 
-  # REMOVE THE ENUM COMPLETELY - JUST COMMENT IT OUT
-  # enum difficulty: {
-  #   beginner: "beginner",
-  #   intermediate: "intermediate",
-  #   advanced: "advanced"
-  # }
+  # SIMPLE ENUM THAT WORKS:
+  enum difficulty: [:beginner, :intermediate, :advanced]
 
   scope :active, -> { where(is_active: true) }
   scope :by_category, ->(category_id) { where(category_id: category_id) }
