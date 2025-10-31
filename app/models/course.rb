@@ -11,17 +11,16 @@ class Course < ApplicationRecord
 
   validates :title, :description, :duration, :difficulty, presence: true
 
-  # Fixed enum definition
-  enum difficulty: {
-    beginner: 'beginner',
-    intermediate: 'intermediate',
-    advanced: 'advanced'
-  }, _default: 'beginner'
+  # REMOVE THE ENUM COMPLETELY - JUST COMMENT IT OUT
+  # enum difficulty: {
+  #   beginner: "beginner",
+  #   intermediate: "intermediate",
+  #   advanced: "advanced"
+  # }
 
   scope :active, -> { where(is_active: true) }
   scope :by_category, ->(category_id) { where(category_id: category_id) }
 
-  # Safe methods to handle potential nil associations
   def category_name
     category&.name || "Uncategorized"
   end
