@@ -24,19 +24,22 @@ module Super
     end
 
     def create
-      # DEBUGGING: Force logging to see what's happening
-      Rails.logger.info "=== COURSE CREATE ACTION STARTED ==="
-      Rails.logger.info "Params received: #{params.inspect}"
+      # Debug logging
+      Rails.logger.info "=== COURSE CREATE STARTED ==="
+      Rails.logger.info "Current user: #{current_user&.id}"
+      Rails.logger.info "Params: #{params.inspect}"
       
       @course = Course.new(course_params)
-      @course.created_by ||= current_user&.id
-
-      Rails.logger.info "Course attributes: #{@course.attributes.inspect}"
+      
+      # Force set created_by and defaults
+      @course.created_by = current_user.id if current_user
+      @course.is_active = true if @course.is_active.nil?
+      
+      Rails.logger.info "Course attributes before save: #{@course.attributes}"
       Rails.logger.info "Course valid?: #{@course.valid?}"
       
       unless @course.valid?
-        Rails.logger.error "Course validation errors: #{@course.errors.full_messages.join(', ')}"
-        Rails.logger.error "Course errors details: #{@course.errors.details}"
+        Rails.logger.error "Validation errors: #{@course.errors.full_messages}"
       end
 
       if @course.save
@@ -52,7 +55,7 @@ module Super
       Rails.logger.error "=== COURSE CREATE EXCEPTION ==="
       Rails.logger.error "Exception: #{e.class}: #{e.message}"
       Rails.logger.error "Backtrace: #{e.backtrace.join("\n")}"
-      flash.now[:alert] = "An error occurred while creating the course."
+      flash.now[:alert] = "An unexpected error occurred while creating the course."
       render :new, status: :unprocessable_entity
     end
 
