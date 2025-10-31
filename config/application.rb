@@ -24,7 +24,7 @@ module Cybersecurity
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
     config.assets.paths << Rails.root.join("app/assets/fonts")
-    config.middleware.insert_before 0, Rack::Logger, log_level: :debug
+    
 # Temporary debugging
 config.log_level = :debug
   end
