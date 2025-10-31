@@ -4,54 +4,51 @@ class CoursesController < ApplicationController
   def index
     @selected_category = params[:category_id].presence
 
-    # Categories list should never 500
-    @categories =
-      if Category.respond_to?(:active) && Category.respond_to?(:with_courses)
-        Category.active.with_courses
-      else
-        Category.all
-      end
+    # Safe categories loading using your existing scope
+    @categories = Category.active.with_courses.to_a rescue []
 
-    base_scope =
-      if current_user&.company && Company.new.respond_to?(:courses)
-        current_user.company.courses
-      else
-        Course.all
-      end
+    # Base scope with safer company check
+    base_scope = if current_user&.company_id
+                  Course.where(company_id: current_user.company_id)
+                 else
+                  Course.all
+                 end
 
-    # Only active courses, eager-load what views touch
+    # Apply filters safely
     base_scope = base_scope.active.includes(:category, :company, :creator)
+    
+    if @selected_category
+      base_scope = base_scope.where(category_id: @selected_category)
+    end
 
-    @courses =
-      if @selected_category
-        base_scope.by_category(@selected_category)
-      else
-        base_scope
-      end.order(created_at: :desc).limit(100)
+    @courses = base_scope.order(created_at: :desc).limit(100).to_a
 
   rescue => e
-    Rails.logger.error("COURSES_INDEX_FAIL: #{e.class}: #{e.message}")
+    Rails.logger.error("COURSES_INDEX_ERROR: #{e.message}\n#{e.backtrace.join("\n")}")
     @categories = []
-    @courses    = []
+    @courses = []
     flash.now[:alert] = "Courses are temporarily unavailable."
     render :index, status: :ok
   end
 
   def show
-    @course = Course.find(params[:id])
-
-    if current_user&.company && Company.new.respond_to?(:courses)
-      unless current_user.company.courses.exists?(@course.id)
-        redirect_to courses_path, alert: "You do not have access to this course." and return
-      end
+    @course = Course.find_by(id: params[:id])
+    
+    unless @course
+      redirect_to courses_path, alert: "Course not found."
+      return
     end
 
-    @training_modules = @course.training_modules.order(:position)
+    # Check access rights
+    if current_user.company_id && @course.company_id != current_user.company_id
+      redirect_to courses_path, alert: "You do not have access to this course."
+      return
+    end
 
-  rescue ActiveRecord::RecordNotFound
-    redirect_to courses_path, alert: "Course not found."
+    @training_modules = @course.training_modules.order(:position).to_a
+
   rescue => e
-    Rails.logger.error("COURSES_SHOW_FAIL: #{e.class}: #{e.message}")
-    redirect_to courses_path, alert: "That course can’t be displayed right now."
+    Rails.logger.error("COURSES_SHOW_ERROR: #{e.message}\n#{e.backtrace.join("\n")}")
+    redirect_to courses_path, alert: "This course cannot be displayed at the moment."
   end
 end

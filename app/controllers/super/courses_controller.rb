@@ -1,21 +1,22 @@
-# app/controllers/super/courses_controller.rb
 module Super
   class CoursesController < BaseController
     before_action :authenticate_user!
     before_action :set_course, only: [:show, :edit, :update, :destroy, :toggle_status]
 
     def index
-      # Keep it resilient so it never 500s in production
-      @courses = Course.includes(:creator, :company, :category).order(created_at: :desc).limit(100)
+      @courses = Course.includes(:creator, :company, :category)
+                      .order(created_at: :desc)
+                      .limit(100)
+                      .to_a
     rescue => e
-      Rails.logger.error("COURSES_INDEX_FAIL: #{e.class}: #{e.message}")
+      Rails.logger.error("SUPER_COURSES_INDEX_FAIL: #{e.class}: #{e.message}\n#{e.backtrace.join("\n")}")
       @courses = []
       flash.now[:alert] = "Courses are temporarily limited while we update the site."
       render :index, status: :ok
     end
 
     def show
-      @training_modules = @course.training_modules.order(:position)
+      @training_modules = @course.training_modules.order(:position).to_a
     end
 
     def new
@@ -24,7 +25,6 @@ module Super
 
     def create
       @course = Course.new(course_params)
-      # Avoid nil created_by if session expired or background tasks create records
       @course.created_by ||= current_user&.id
 
       if @course.save
@@ -62,7 +62,11 @@ module Super
     private
 
     def set_course
-      @course = Course.find(params[:id])
+      @course = Course.find_by(id: params[:id])
+      unless @course
+        redirect_to super_courses_path, alert: "Course not found."
+        return
+      end
     end
 
     def course_params

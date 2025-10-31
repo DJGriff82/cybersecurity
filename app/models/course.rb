@@ -11,13 +11,26 @@ class Course < ApplicationRecord
 
   validates :title, :description, :duration, :difficulty, presence: true
 
-  # STRING column in DB → STRING enum mapping:
-  enum :difficulty, {
-    beginner:     "beginner",
-    intermediate: "intermediate",
-    advanced:     "advanced"
-  }, default: "beginner"
+  # Fixed enum definition
+  enum difficulty: {
+    beginner: 'beginner',
+    intermediate: 'intermediate',
+    advanced: 'advanced'
+  }, _default: 'beginner'
 
   scope :active, -> { where(is_active: true) }
   scope :by_category, ->(category_id) { where(category_id: category_id) }
+
+  # Safe methods to handle potential nil associations
+  def category_name
+    category&.name || "Uncategorized"
+  end
+
+  def company_name
+    company&.name || "No Company"
+  end
+
+  def creator_name
+    creator&.full_name || creator&.email || "Unknown"
+  end
 end
