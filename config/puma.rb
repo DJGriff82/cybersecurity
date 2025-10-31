@@ -18,7 +18,7 @@ if env == "production"
   state_path File.join(shared, "pids", "puma.state")
 
   # Nginx expects this socket
-  bind "unix://#{File.join(shared, 'sockets', 'puma.sock')}"
+  bind "unix://#{File.join(shared, 'sockets', 'pum.sock')}"
 
   workers Integer(ENV.fetch("PUMA_WORKERS", 2))
   threads Integer(ENV.fetch("PUMA_MIN_THREADS", 1)), Integer(ENV.fetch("PUMA_MAX_THREADS", 5))
